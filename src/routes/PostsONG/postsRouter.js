@@ -12,3 +12,5 @@ router.post("/newpost", async (req, res) => {
     const newPost = await createPost(req.body);
     res.status(200).send(newPost)
 })
+
+module.exports = router;
