@@ -29,12 +29,16 @@ model Post {
   authorId String @db.ObjectId
   date  String
   expirationDate  String
-  updateDate  String
+  updateDate  DateTime @default(now())
   title String
   description String
   location String
   image String
   resultsAchieved String
+  confirmPost_id String[]   @db.ObjectId
+  users Users[] @relation(fields: [confirmPost_id], references: [id])
+  type_of_donor type_of_donor @default(EFECTIVO)
+  type_of_volunteer String
 }
 
 model Companies {
@@ -47,3 +51,23 @@ model Companies {
   companyName String
   companyCUIT String
 }
+
+model Users {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  lastName String
+  cuil String 
+  user_linkedin String
+  birthDate DateTime 
+  profession String
+  email String
+  password String
+  posts Post[] @relation(fields: [userIds], references: [id])
+  userIds String[] @db.ObjectId
+}
+
+enum type_of_donor {
+  EFECTIVO
+  EN_ESPECIE
+}
+
