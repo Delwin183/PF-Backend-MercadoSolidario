@@ -29,17 +29,5 @@ module.exports = {
             posts: true
         }});
         return users;
-    },
-    getPosts: async function(body) {
-        const {
-            cuit
-        } = body;
-        const posts = await prisma.post.findMany();
-        return posts;
-    },
-    createPost: async function(body) {
-        const {authorId, title} = body;
-        const newPost = await prisma.post.create({data: {authorId, title}});
-        return newPost
     }
 }
