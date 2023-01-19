@@ -1,1 +1,3 @@
 PF Backend Mercado Solidario
+
+Esta API contiene información sobre voluntarios, donantes, ONG's y empresas "Great Place To Work"...
