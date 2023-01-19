@@ -29,16 +29,16 @@ model Post {
   authorId String @db.ObjectId
   date  String
   expirationDate  String
-  updateDate  DateTime @default(now())
+  updateDate  DateTime? @default(now())
   title String
-  description String
+  description String?
   location String
-  image String
-  resultsAchieved String
+  image String?
+  resultsAchieved String?
   confirmPost_id String[]   @db.ObjectId
   users Users[] @relation(fields: [confirmPost_id], references: [id])
-  type_of_donor type_of_donor @default(EFECTIVO)
-  type_of_volunteer String
+  type_of_donor type_of_donor? @default(EFECTIVO)
+  type_of_volunteer String?
 }
 
 model Companies {
