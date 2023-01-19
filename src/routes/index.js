@@ -7,6 +7,6 @@ const router = Router();
 // router.use('/volunteers')
 router.use('/ongs', ongRouter)
 // router.use('/companies')
-router.use('/ongs', postsRouter)
+router.use('/posts', postsRouter)
 
 module.exports = router;
