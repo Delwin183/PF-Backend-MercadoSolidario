@@ -37,7 +37,13 @@ model Post {
   resultsAchieved String
 }
 
-// model Companies {
-//   id       String @id @default(auto()) @map("_id") @db.ObjectId
-//   name String 
-// }
+model Companies {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name String 
+  lastName String
+  phone String 
+  country String
+  amountEmployee  String
+  companyName String
+  companyCUIT String
+}
