@@ -11,6 +11,10 @@ module.exports = {
         return posts;
     },
     getPostsForId: async function(id){
+        if (!id) {
+            throw new Error("Para buscar una publicación por ID, por favor, ingrese el identificador de la misma.") 
+        }
+
         const post = await prisma.post.findUnique({where: {id}})
     
         if (!post) {
