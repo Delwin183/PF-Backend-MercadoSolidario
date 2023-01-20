@@ -1,7 +1,7 @@
 //bring in prisma
 
 const prisma = require('../../db');
-const { validationPost } = require('./validationPosts');
+const validationPost = require('./validationPosts');
 
 // ONG singup
 module.exports = {
@@ -11,15 +11,16 @@ module.exports = {
         return posts;
     },
     createPost: async function(body) {
-        const {date} = body;
-        date = date.toISOString()
+        const {expirationDate} = body;
+        // expirationDate = expirationDate.toISOString()
         const validate = validationPost(body);
 
         if (validate.containErrors) {
-            return validate.message
+            throw new Error(validate.message)
         }
 
-        const newPost = await prisma.post.create({data: {...body, date}});
+        // const newPost = await prisma.post.create({data: {...body, expirationDate}});
+        const newPost = await prisma.post.create({data: body}); 
         return {...newPost, ...validate}
     }
 }
