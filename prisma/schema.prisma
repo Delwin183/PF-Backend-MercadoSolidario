@@ -14,10 +14,10 @@ model Ong {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String 
   lastName  String
-  phone String
+  phone String?
   country String
   province String
-  amountEmployee  String
+  amountEmployee  String?
   ongName String
   ongCUIT String
   posts Post[] 
