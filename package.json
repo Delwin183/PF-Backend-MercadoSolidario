@@ -1,19 +1,21 @@
 {
-  "name": "mersol",
+  "name": "pf-solidarity-market",
   "version": "1.0.0",
-  "description": "",
+  "description": "Solidarity marketplace for people who want to donate or volunteer for ONGs and publish their action.",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "authors": "Delwin Hernandez, Fabian Carvajal, Frank Camarena",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.8.1",
     "axios": "^1.2.3",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
