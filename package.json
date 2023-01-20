@@ -7,7 +7,7 @@
     "dev": "nodemon index.js"
   },
   "keywords": [],
-  "authors": "Delwin Hernandez, Fabian Carvajal, Frank Camarena",
+  "authors": "Delwin Hernandez, Fabian Carabajal, Frank Camarena",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.8.1",
