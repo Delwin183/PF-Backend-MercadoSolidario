@@ -13,7 +13,7 @@ module.exports = {
     },
     createPost: async function(body) {
         const {authorId, title} = body;
-        const newPost = await prisma.post.create({data: {authorId, title}});
+        const newPost = await prisma.post.create({data: body});
         return newPost
     }
 }

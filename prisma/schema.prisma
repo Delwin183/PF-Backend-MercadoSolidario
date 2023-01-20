@@ -14,10 +14,10 @@ model Ong {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String 
   lastName  String
-  phone String
+  phone String?
   country String
   province String
-  amountEmployee  String
+  amountEmployee  String?
   ongName String
   ongCUIT String
   posts Post[] 
@@ -27,18 +27,18 @@ model Post {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   author   Ong   @relation(fields: [authorId], references: [id])
   authorId String @db.ObjectId
-  date  String
+  date  DateTime? @default(now())
   expirationDate  String
-  updateDate  DateTime @default(now())
+  updateDate  DateTime? @default(now())
   title String
-  description String
+  description String?
   location String
-  image String
-  resultsAchieved String
+  image String?
+  resultsAchieved String?
   confirmPost_id String[]   @db.ObjectId
   users Users[] @relation(fields: [confirmPost_id], references: [id])
-  type_of_donor type_of_donor @default(EFECTIVO)
-  type_of_volunteer String
+  type_of_donor type_of_donor? @default(EFECTIVO)
+  type_of_volunteer String?
 }
 
 model Companies {
