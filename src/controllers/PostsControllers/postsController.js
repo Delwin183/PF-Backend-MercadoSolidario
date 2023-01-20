@@ -10,6 +10,15 @@ module.exports = {
         const posts = await prisma.post.findMany();
         return posts;
     },
+    getPostsForId: async function(id){
+        const post = await prisma.post.findUnique({where: {id}})
+    
+        if (!post) {
+            throw new Error("La publicación que está buscando no existe o fue eliminada.")
+        }
+
+        return post;
+    },
     createPost: async function(body) {
         const {expirationDate} = body;
         // expirationDate = expirationDate.toISOString()
