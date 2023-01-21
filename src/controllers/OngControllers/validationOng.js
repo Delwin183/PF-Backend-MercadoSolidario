@@ -47,7 +47,7 @@ async function isOng(body) {
       return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el nombre de su ONG.'};
   }
 
-  return {containErrors: false, message: "Usted se registro correctamente con una cuenta ONG que tiene por nombre " + name}
+  return {containErrors: false, message: "Usted se registro correctamente con una cuenta ONG que tiene por nombre " + ongName}
 }
 
 module.exports = isOng;
