@@ -28,27 +28,27 @@ async function isCompany(body) {
   }
 
   if(!name) {
-    return {containErrors: true, message: ('Este campo es requerido, por favor ingrese el nombre.')};
+    return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el nombre.'};
   }
 
   if(!lastName) {
-      return {containErrors: true, message: ('Este campo es requerido, por favor ingrese el apellido.')};
+      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el apellido.'};
   }
 
   if(!country) {
-      return {containErrors: true, message: ('Este campo es requerido, por favor ingrese su pais natal.')};
+      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese su pais natal.'};
   }
 
   if(!amountEmployee) {
-      return {containErrors: true, message: ('Este campo es requerido, por favor ingrese la cantidad de empleados con los que cuenta.')};
+      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese la cantidad de empleados con los que cuenta.'};
   }
 
   if(!companyName) {
-      return {containErrors: true, message: ('Este campo es requerido, por favor ingrese el nombre de su empresa.')};
+      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el nombre de su empresa.'};
   }
 
   if(!phone) {
-      return {containErrors: true, message: ('Este campo es requerido, por favor ingrese su numero de contacto.')};
+      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese su numero de contacto.'};
   }
 
   return {containErrors: true, message: "Usted se registró correctamente."};
