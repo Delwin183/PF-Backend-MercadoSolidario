@@ -15,7 +15,7 @@ router.post("/newcompany", async (req, res) => {
   }
 });
 
-router.get("/getCompanies", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const allCompanies = await getCompanies();
     res.status(200).send(allCompanies);
