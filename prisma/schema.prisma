@@ -35,11 +35,13 @@ model Post {
   location          String
   image             String?
   resultsAchieved   String?
-  confirmPost_id    String[]   @db.ObjectId
-  users             Users[] @relation(fields: [confirmPost_id], references: [id])
+  users_id          String[]   @db.ObjectId
+  users             Users[] @relation(fields: [users_id], references: [id])
   type_of_donor     type_of_donor? @default(EFECTIVO)
   type_of_volunteer String?
 }
+
+
 
 model Companies {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
@@ -62,9 +64,11 @@ model Users {
   profession        String
   email             String
   password          String
-  posts             Post[] @relation(fields: [userIds], references: [id])
-  userIds           String[] @db.ObjectId
+  postIds           String[] @db.ObjectId
+  posts             Post[] @relation(fields: [postIds], references: [id])
 }
+
+
 
 enum type_of_donor {
   EFECTIVO
