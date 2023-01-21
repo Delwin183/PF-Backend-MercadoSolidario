@@ -7,7 +7,7 @@ module.exports = {
         const validateUsers = validateUser(body);
 
         if (validateUsers) {
-            return validateUsers
+            throw new Error(validateUsers)
         }
 
         const user = await prisma.users.create({
