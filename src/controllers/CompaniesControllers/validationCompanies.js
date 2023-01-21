@@ -51,7 +51,7 @@ async function isCompany(body) {
       return {containErrors: true, message: 'Este campo es requerido, por favor ingrese su numero de contacto.'};
   }
 
-  return {containErrors: true, message: "Usted se registró correctamente."};
+  return {containErrors: false, message: "Usted se registró correctamente."};
 
 }
 
