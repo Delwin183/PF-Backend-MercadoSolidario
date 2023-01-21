@@ -19,7 +19,7 @@ async function isCompany(body) {
     return {containErrors: true, message: "El CUIT ingresada es incorrecta"};
   } 
   
-  if(data.tipoClave !== "CUIT"){
+  if(data.Contribuyente.tipoClave !== "CUIT"){
     return {containErrors: true, message: "El CUIT ingresada no es de una empresa con fines de lucro."};
   }
 
