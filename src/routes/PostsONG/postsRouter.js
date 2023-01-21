@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  getPosts,
-  createPost,
-} = require("../../controllers/PostsControllers/postsController");
+
+const {getPosts, createPost, getPostsForId} = require('../../controllers/PostsControllers/postsController')
+
 
 router.get("/", async (req, res) => {
   try {
@@ -14,6 +13,15 @@ router.get("/", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+router.get("/:id", async (req, res) => {
+    try {
+        const post = await getPostsForId(req.params.id);
+        res.status(200).send(post);
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
 
 router.post("/newpost", async (req, res) => {
   try {

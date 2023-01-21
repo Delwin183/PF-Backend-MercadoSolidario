@@ -1,7 +1,7 @@
 //bring in prisma
 
 const prisma = require('../../db');
-const { validationPost } = require('./validationPosts');
+const validationPost = require('./validationPosts');
 
 // ONG singup
 module.exports = {
@@ -10,16 +10,30 @@ module.exports = {
         const posts = await prisma.post.findMany();
         return posts;
     },
+    getPostsForId: async function(id){
+        if (!id) {
+            throw new Error("Para buscar una publicación por ID, por favor, ingrese el identificador de la misma.") 
+        }
+
+        const post = await prisma.post.findUnique({where: {id}})
+    
+        if (!post) {
+            throw new Error("La publicación que está buscando no existe o fue eliminada.")
+        }
+
+        return post;
+    },
     createPost: async function(body) {
-        const {date} = body;
-        date = date.toISOString()
+        const {expirationDate} = body;
+        // expirationDate = expirationDate.toISOString()
         const validate = validationPost(body);
 
         if (validate.containErrors) {
-            return validate.message
+            throw new Error(validate.message)
         }
 
-        const newPost = await prisma.post.create({data: {...body, date}});
+        // const newPost = await prisma.post.create({data: {...body, expirationDate}});
+        const newPost = await prisma.post.create({data: body}); 
         return {...newPost, ...validate}
     }
 }
