@@ -19,12 +19,13 @@ module.exports = {
     } = body;
     const resultIsOng = await isOng(ongCUIT);
 
-    //check
-    if (resultIsOng) {
-      if (!name | !lastName | country | province | ongName) {
-        console.log("Please, provide all fields");
+    if (!name | !lastName | !country | !province | !ongName) {
+        throw new Error("Please, provide all fields");
       }
 
+    //check
+    if (!resultIsOng.containErrors) {
+      
       const ong = await prisma.ong.create({
         data: {
           name,
@@ -37,7 +38,9 @@ module.exports = {
           ongCUIT,
         },
       });
-      return ong;
+      return {...ong, ...resultIsOng};
+    } else {
+      throw new Error (resultIsOng.message);
     }
   },
   getOngs: async function () {
