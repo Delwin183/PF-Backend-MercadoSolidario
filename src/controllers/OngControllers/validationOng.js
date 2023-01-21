@@ -19,7 +19,7 @@ async function isOng(body) {
     return {containErrors: true, message: "La CUIT ingresada es incorrecta"}
   }
 
-  if(data.tipoClave !== "CUIT"){
+  if(data.Contribuyente.tipoClave !== "CUIT"){
     return {containErrors: true, message: "El CUIT ingresado no es de una empresa sin fines de lucro."};
   }
 
