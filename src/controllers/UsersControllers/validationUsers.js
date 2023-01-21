@@ -1,7 +1,7 @@
 function validateUser(body){
     const {name, lastName, cuil, user_linkedin, profession, email, password} = body;
 
-    if(!name | !lastName | !cuil | !user_linkedin | !profession | !email | !password) {
+    if(!name) {
         return {containErrors: true, message: ('Este campo es requerido, por favor ingrese el nombre.')};
     }
 
