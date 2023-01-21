@@ -28,23 +28,23 @@ async function isOng(body) {
   }
 
   if(!name) {
-    return {containErrors: true, message: ('Este campo es requerido, por favor ingrese el nombre.')};
+    return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el nombre.'};
   }
 
   if(!lastName) {
-      return {containErrors: true, message: ('Este campo es requerido, por favor ingrese el apellido.')};
+      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el apellido.'};
   }
 
   if(!country) {
-      return {containErrors: true, message: ('Este campo es requerido, por favor ingrese su pais natal.')};
+      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese su pais natal.'};
   }
   
   if(!province) {
-    return {containErrors: true, message: ('Este campo es requerido, por favor ingrese en que provincia reside su ONG')};
+    return {containErrors: true, message: 'Este campo es requerido, por favor ingrese en que provincia reside su ONG'};
   }
   
   if(!ongName) {
-      return {containErrors: true, message: ('Este campo es requerido, por favor ingrese el nombre de su ONG.')};
+      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el nombre de su ONG.'};
   }
 
   return {containErrors: false, message: "Usted se registro correctamente con una cuenta ONG que tiene por nombre " + name}
