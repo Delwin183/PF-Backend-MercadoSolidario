@@ -7,7 +7,9 @@ const validationPost = require('./validationPosts');
 module.exports = {
     getPosts: async function(body) {
         
-        const posts = await prisma.post.findMany();
+        const posts = await prisma.post.findMany({include: {
+            users: true
+        }});
         return posts;
     },
     getPostsForId: async function(id){
