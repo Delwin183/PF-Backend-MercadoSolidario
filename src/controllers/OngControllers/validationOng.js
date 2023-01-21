@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-async function isOng(ongCUIT) {
+async function isOng(body) {
   const {
     name,
     lastName,
