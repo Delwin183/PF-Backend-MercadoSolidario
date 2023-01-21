@@ -1,18 +1,17 @@
-const axios = require('axios')
-async function isOng(ongCUIT) 
-{ 
-    try {
-      const getCuit = await axios.get(`https://afip.tangofactura.com/Rest/GetContribuyenteFull?cuit=`+ ongCUIT);
-      const data = (getCuit.data)
-      if(data.errorGetData || !data.Contribuyente.EsExento) {
-        console.log("La CUIT ingresada es incorrecta o la organización no es una ONG") 
-      } else {
-        console.log('La CUIT ingresada es correcta')
-        return true;
-      }
-    } catch (error) {
-      console.log(error);
-    }
+const axios = require("axios");
+
+async function isOng(ongCUIT) {
+  const getCuit = await axios.get(
+    `https://afip.tangofactura.com/Rest/GetContribuyenteFull?cuit=` + ongCUIT
+  );
+  const data = getCuit.data;
+  if (data.errorGetData) {
+    return {containErrors: true, message: "La CUIT ingresada es incorrecta"}
+  }
+  if(!data.Contribuyente.EsExento) {
+    return {containErrors: true, message: "La CUIT ingresada no es una ONG"}
+  }
+  return {containErrors: false, message: "La ONG se creo exitosamente"}
 }
 
-module.exports={isOng};
+module.exports = isOng;
