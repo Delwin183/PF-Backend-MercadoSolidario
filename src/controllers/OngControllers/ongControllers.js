@@ -7,41 +7,18 @@ const isOng = require("./validationOng");
 // ONG singup
 module.exports = {
   signUp: async function (body) {
-    const {
-      name,
-      lastName,
-      country,
-      phone,
-      province,
-      ongName,
-      amountEmployee,
-      ongCUIT,
-    } = body;
-    const resultIsOng = await isOng(ongCUIT);
-
-    if (!name | !lastName | !country | !province | !ongName) {
-        throw new Error("Please, provide all fields");
-      }
+    const resultIsOng = await isOng(body);
 
     //check
-    if (!resultIsOng.containErrors) {
-      
-      const ong = await prisma.ong.create({
-        data: {
-          name,
-          lastName,
-          phone,
-          country,
-          province,
-          amountEmployee,
-          ongName,
-          ongCUIT,
-        },
-      });
-      return {...ong, ...resultIsOng};
-    } else {
-      throw new Error (resultIsOng.message);
+    if (resultIsOng.containErrors) {
+      throw new Error(resultIsOng);
     }
+    const ong = await prisma.ong.create({
+      data: body,
+    });
+
+    return {...ong, ...resultIsOng};
+     
   },
   getOngs: async function () {
     const users = await prisma.ong.findMany({
