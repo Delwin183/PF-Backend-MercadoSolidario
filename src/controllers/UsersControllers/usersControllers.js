@@ -4,9 +4,9 @@ const validateUser = require('./validationUsers');
 module.exports = {
     signUp: async function(body) {        
 
-        const validateUsers = validateUser(body);
+        const validateUsers = await validateUser(body);
 
-        if (validateUsers) {
+        if (validateUsers.containErrors) {
             throw new Error(validateUsers)
         }
 
