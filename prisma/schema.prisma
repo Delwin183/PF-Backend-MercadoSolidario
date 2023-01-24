@@ -25,8 +25,8 @@ model Ong {
 
 model Post {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
+  authorId         String @db.ObjectId
   author            Ong   @relation(fields: [authorId], references: [id])
-  authorId          String @db.ObjectId
   date              DateTime? @default(now())
   expirationDate    String
   updateDate        DateTime? @default(now())
@@ -35,23 +35,18 @@ model Post {
   location          String
   image             String?
   resultsAchieved   String?
-  users_id          String[]   @db.ObjectId
-  users             Users[] @relation(fields: [users_id], references: [id])
+  confirmed         Confirmed[]
   type_of_donor     type_of_donor? @default(EFECTIVO)
   type_of_volunteer String?
 }
 
-
-
-model Companies {
+model Confirmed {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
-  name              String 
-  lastName          String
-  phone             String 
-  country           String
-  amountEmployee    String
-  companyName       String
-  companyCUIT       String
+  userIDs           String @db.ObjectId
+  users             Users @relation(fields: [userIDs], references: [id])
+  postIDs           String @db.ObjectId
+  posts             Post @relation(fields: [postIDs], references: [id])
+  dateConfirmed     DateTime @default(now())
 }
 
 model Users {
@@ -64,11 +59,19 @@ model Users {
   profession        String
   email             String
   password          String
-  postIds           String[] @db.ObjectId
-  posts             Post[] @relation(fields: [postIds], references: [id])
+  confirmed         Confirmed[]
 }
 
-
+model Companies {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  name              String 
+  lastName          String
+  phone             String 
+  country           String
+  amountEmployee    String
+  companyName       String
+  companyCUIT       String
+}
 
 enum type_of_donor {
   EFECTIVO
