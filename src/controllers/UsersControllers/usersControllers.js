@@ -11,14 +11,32 @@ module.exports = {
         }
 
         const user = await prisma.users.create({
-            data: body
+            data: body,
+            include:{confirmed: true}
         })
         return {...user, ...validateUsers}
     },
     getUsers: async function() {
         const allUsers = await prisma.users.findMany({include: {
-            posts: true
+            confirmed: true
         }});
         return allUsers;
-    }
+    },
+    getUserById: async function(id){
+        if (!id) {
+            throw new Error("Para buscar un usuario por ID, por favor, ingrese el identificador de la misma.") 
+        }
+
+        const result = await prisma.users.findUnique({
+            where: {id},
+            include: {
+                confirmed: true,
+            }
+        })
+        if (!id) {
+            throw new Error("El usuario que busca no existe.")
+        }
+
+        return result;
+    },
 }
