@@ -20,6 +20,7 @@ model Ong {
   amountEmployee    String?
   ongName           String
   ongCUIT           String
+  isActive          Boolean @default(true)
   posts             Post[] 
 }
 
@@ -35,6 +36,7 @@ model Post {
   location          String
   image             String?
   resultsAchieved   String?
+  isActive          Boolean @default(true)
   confirmed         Confirmed[]
   type_of_donor     type_of_donor? @default(EFECTIVO)
   type_of_volunteer String?
@@ -59,6 +61,7 @@ model Users {
   profession        String
   email             String
   password          String
+  isActive          Boolean @default(true)
   confirmed         Confirmed[]
 }
 
@@ -71,6 +74,7 @@ model Companies {
   amountEmployee    String
   companyName       String
   companyCUIT       String
+  isActive          Boolean @default(true)
 }
 
 enum type_of_donor {

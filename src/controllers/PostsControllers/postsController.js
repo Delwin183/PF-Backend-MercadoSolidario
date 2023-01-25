@@ -43,4 +43,19 @@ module.exports = {
         const newPost = await prisma.post.create({data: body}); 
         return {...newPost, ...validate}
     },
+    logicDeletePost: async function(id) {
+        if(!id) {
+          throw new Error("El ID del Post ingresado no es correcto")
+        }
+    
+        const result = await prisma.post.update({
+          where: {
+            id: id,
+          },
+          data: {
+            isActive: false,
+          },
+        });
+        return result
+      }
 }

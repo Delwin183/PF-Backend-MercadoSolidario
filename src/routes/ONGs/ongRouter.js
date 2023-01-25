@@ -4,8 +4,8 @@ const router = express.Router();
 const {
   signUp,
   getOngs,
-  getPosts,
-  createPost,
+  logicDeleteONG,
+  getDeleteONGs,
 } = require("../../controllers/OngControllers/ongControllers");
 
 router.post("/newong", async (req, res) => {
@@ -21,6 +21,24 @@ router.get("/", async (req, res) => {
   try {
     const ongs = await getOngs();
     res.status(200).send(ongs);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.put('/:id', async (req, res) => {
+  try {
+    const result = await logicDeleteONG(req.params.id);
+    res.status(200).send(`La ONG denominada ${result.ongName} se removió correctamente`)
+  } catch (error) {
+    res.status(400).json({error: error.message});
+  }
+});
+
+router.get("/deleted", async (req, res) => {
+  try {
+    const result = await getDeleteONGs();
+    res.status(200).send(result);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
