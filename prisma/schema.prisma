@@ -23,6 +23,7 @@ model Ong {
   isActive          Boolean @default(true)
   email             String
   password          String
+  rut               String
   type_of_user      type_of_user
   posts             Post[] 
 }
@@ -80,6 +81,7 @@ model Companies {
   companyCUIT       String
   email             String
   password          String
+  rut               String
   type_of_user      type_of_user
   isActive          Boolean @default(true)
 }
@@ -91,6 +93,7 @@ enum type_of_help {
 }
 
 enum type_of_user {
+  admin
   ong
   company
   user
