@@ -10,7 +10,7 @@
   "authors": "Delwin Hernandez, Fabian Carabajal, Frank Camarena",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^4.8.1",
+    "@prisma/client": "^4.9.0",
     "axios": "^1.2.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
