@@ -1,5 +1,5 @@
 // This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// learn more about it in the docs: https://pris.ly/d/prisma-schema_
 
 generator client {
   provider = "prisma-client-js"
@@ -14,19 +14,22 @@ model Ong {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   name              String 
   lastName          String
-  phone             String?
-  country           String
-  province          String
+  phone             String
+  country           String?
+  province          String?
   amountEmployee    String?
-  ongName           String
+  ongName           String?
   ongCUIT           String
   isActive          Boolean @default(true)
+  email             String
+  password          String
+  type_of_user      type_of_user
   posts             Post[] 
 }
 
 model Post {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
-  authorId         String @db.ObjectId
+  authorId          String @db.ObjectId
   author            Ong   @relation(fields: [authorId], references: [id])
   date              DateTime? @default(now())
   expirationDate    String
@@ -38,8 +41,7 @@ model Post {
   resultsAchieved   String?
   isActive          Boolean @default(true)
   confirmed         Confirmed[]
-  type_of_donor     type_of_donor? @default(EFECTIVO)
-  type_of_volunteer String?
+  type_of_help      type_of_help
 }
 
 model Confirmed {
@@ -49,6 +51,7 @@ model Confirmed {
   postIDs           String @db.ObjectId
   posts             Post @relation(fields: [postIDs], references: [id])
   dateConfirmed     DateTime @default(now())
+  type_of_help      type_of_help
 }
 
 model Users {
@@ -56,12 +59,13 @@ model Users {
   name              String
   lastName          String
   cuil              String 
-  user_linkedin     String
-  birthDate         DateTime 
-  profession        String
+  user_linkedin     String?
+  birthDate         DateTime? 
+  profession        String?
   email             String
   password          String
   isActive          Boolean @default(true)
+  type_of_user      type_of_user
   confirmed         Confirmed[]
 }
 
@@ -69,16 +73,27 @@ model Companies {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   name              String 
   lastName          String
-  phone             String 
-  country           String
-  amountEmployee    String
-  companyName       String
+  phone             String? 
+  country           String?
+  amountEmployee    String?
+  companyName       String?
   companyCUIT       String
+  email             String
+  password          String
+  type_of_user      type_of_user
   isActive          Boolean @default(true)
 }
 
-enum type_of_donor {
-  EFECTIVO
-  EN_ESPECIE
+enum type_of_help {
+  efectivo
+  especie
+  servicio
 }
 
+enum type_of_user {
+  ong
+  company
+  user
+}
+
+//
