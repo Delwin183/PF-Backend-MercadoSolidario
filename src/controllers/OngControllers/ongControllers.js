@@ -22,10 +22,36 @@ module.exports = {
   },
   getOngs: async function () {
     const users = await prisma.ong.findMany({
+      where: {
+        isActive: true,
+      },
       include: {
         posts: true,
       },
     });
     return users;
+  },
+  logicDeleteONG: async function(id) {
+    if(!id) {
+      throw new Error("La id de la ONG ingresada no es correcta")
+    }
+
+    const result = await prisma.ong.update({
+      where: {
+        id: id,
+      },
+      data: {
+        isActive: false,
+      },
+    });
+    return result
+  },
+  getDeleteONGs: async function () {
+    const result = await prisma.companies.findMany({
+      where: {
+        isActive: false,
+      }
+    });
+    return result;
   },
 };

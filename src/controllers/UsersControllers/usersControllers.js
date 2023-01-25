@@ -17,8 +17,12 @@ module.exports = {
         return {...user, ...validateUsers}
     },
     getUsers: async function() {
-        const allUsers = await prisma.users.findMany({include: {
-            confirmed: true
+        const allUsers = await prisma.users.findMany({
+            where: {
+                isActive: true,
+            },
+            include: {
+                confirmed: true
         }});
         return allUsers;
     },
@@ -39,4 +43,30 @@ module.exports = {
 
         return result;
     },
+    logicDeleteUser: async function(id) {
+        if(!id) {
+          throw new Error("El ID del usuario ingresado no es correcto")
+        }
+    
+        const result = await prisma.users.update({
+          where: {
+            id: id,
+          },
+          data: {
+            isActive: false,
+          },
+        });
+        return result
+      },
+      getDeleteUser: async function () {
+        const result = await prisma.users.findMany({
+          where: {
+            isActive: false,
+          },
+          include: {
+            confirmed: true,
+          }
+        });
+        return result;
+      },
 }
