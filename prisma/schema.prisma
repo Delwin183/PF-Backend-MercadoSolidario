@@ -20,11 +20,12 @@ model Ong {
   amountEmployee    String?
   ongName           String?
   ongCUIT           String
-  isActive          Boolean @default(true)
+  isActive          Boolean @default(false)
   email             String
   password          String
   rut               String
   type_of_user      type_of_user
+  rubro             rubros[]
   posts             Post[] 
 }
 
@@ -59,7 +60,8 @@ model Users {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   lastName          String
-  cuil              String 
+  phone             String
+  cuil              String? 
   user_linkedin     String?
   birthDate         DateTime? 
   profession        String?
@@ -83,7 +85,7 @@ model Companies {
   password          String
   rut               String
   type_of_user      type_of_user
-  isActive          Boolean @default(true)
+  isActive          Boolean @default(false)
 }
 
 enum type_of_help {
@@ -95,8 +97,13 @@ enum type_of_help {
 enum type_of_user {
   admin
   ong
-  company
-  user
+  companies
+  users
+}
+
+enum rubros {
+  Educacion
+  MedioAmbiente
 }
 
 //
