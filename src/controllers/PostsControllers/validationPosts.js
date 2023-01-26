@@ -13,9 +13,9 @@ function validationPost(body){
         return {containErrors: true, message: "La localidad es obligatoria, por favor llena ese campo."}
     }
 
-    if (type_of_donor !== "EFECTIVO" && type_of_donor !== "EN_ESPECIE") {
-        return {containErrors: true, message: "Solo puede haber dos tipos de donaciones, intenta nuevamente."}
-    }
+    // if (type_of_donor !== "EFECTIVO" && type_of_donor !== "EN_ESPECIE") {
+    //     return {containErrors: true, message: "Solo puede haber dos tipos de donaciones, intenta nuevamente."}
+    // }
 
     return {containErrors: false, message: "Tu publicación se creó exitosamente"}
 }
