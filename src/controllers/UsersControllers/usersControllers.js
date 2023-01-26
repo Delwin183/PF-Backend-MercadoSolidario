@@ -1,17 +1,34 @@
 const prisma = require('../../db');
+const { registerOfAUser } = require('../Auth/registrationController');
 const validateUser = require('./validationUsers');
 
 module.exports = {
     signUp: async function(body) {        
+    console.log('controller register 1');
 
-        const validateUsers = await validateUser(body);
+      const validateUsers = await validateUser(body);
+      console.log('controller register2');
+      const hashPassword = await registerOfAUser(body);
+      console.log('controller register3');
+      let {email, name, lastName,  cuil, user_linkedin, birthDate, profession, type_of_user} = body;
 
-        if (validateUsers.containErrors) {
-            throw new Error(validateUsers)
+        if (validateUsers.containErrors || hashPassword.containErrors) {
+            throw new Error(validateUsers || hashPassword.containErrors)
         }
+    console.log('controller register 4');
 
         const user = await prisma.users.create({
-            data: body,
+            data: {
+              password: hashPassword.password,
+              email,
+              name,
+              lastName,
+              cuil: cuil ? cuil : undefined,
+              user_linkedin: user_linkedin ? user_linkedin : undefined,
+              birthDate: birthDate ? birthDate : undefined,
+              profession: profession ? profession : undefined,
+              type_of_user
+            },
             include:{confirmed: true}
         })
         return {...user, ...validateUsers}
