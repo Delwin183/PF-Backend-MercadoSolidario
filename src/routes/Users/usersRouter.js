@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {signUp, getUsers} = require('../../controllers/UsersControllers/usersControllers')
+const {signUp, getUsers, getUserById,logicDeleteUser, getDeleteUser} = require('../../controllers/UsersControllers/usersControllers')
 
 router.post("/newuser", async (req, res) => {
     try {
@@ -19,6 +19,35 @@ router.get("/", async (req, res) => {
     } catch (error) {
         res.status(400).send(error.message);
     }
+});
+
+router.get("/deleted", async (req, res) => {
+    try {
+      const result = await getDeleteUser();
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+});
+
+router.get("/:id", async (req, res) => {
+    try {
+        const result = await getUserById(req.params.id);
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
 })
+
+router.put('/:id', async (req, res) => {
+    try {
+      const result = await logicDeleteUser(req.params.id);
+      res.status(200).send(`El usuario ${result.name} ${result.lastName} se removió correctamente`)
+    } catch (error) {
+      res.status(400).json({error: error.message});
+    }
+});
+
+
 
 module.exports = router;

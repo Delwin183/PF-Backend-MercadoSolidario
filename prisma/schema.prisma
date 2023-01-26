@@ -1,5 +1,5 @@
 // This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// learn more about it in the docs: https://pris.ly/d/prisma-schema_
 
 generator client {
   provider = "prisma-client-js"
@@ -14,19 +14,26 @@ model Ong {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   name              String 
   lastName          String
-  phone             String?
-  country           String
-  province          String
+  phone             String
+  country           String?
+  province          String?
   amountEmployee    String?
-  ongName           String
-  ongCUIT           String
+  ongName           String?
+  address           String?
+  cuit              String
+  isActive          Boolean @default(false)
+  email             String
+  password          String
+  rut               String
+  type_of_user      type_of_user
+  rubro             rubros[]
   posts             Post[] 
 }
 
 model Post {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
-  author            Ong   @relation(fields: [authorId], references: [id])
   authorId          String @db.ObjectId
+  author            Ong   @relation(fields: [authorId], references: [id])
   date              DateTime? @default(now())
   expirationDate    String
   updateDate        DateTime? @default(now())
@@ -35,43 +42,70 @@ model Post {
   location          String
   image             String?
   resultsAchieved   String?
-  users_id          String[]   @db.ObjectId
-  users             Users[] @relation(fields: [users_id], references: [id])
-  type_of_donor     type_of_donor? @default(EFECTIVO)
-  type_of_volunteer String?
+  isActive          Boolean @default(true)
+  confirmed         Confirmed[]
+  type_of_help      type_of_help
 }
 
-
-
-model Companies {
+model Confirmed {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
-  name              String 
-  lastName          String
-  phone             String 
-  country           String
-  amountEmployee    String
-  companyName       String
-  companyCUIT       String
+  userIDs           String @db.ObjectId
+  users             Users @relation(fields: [userIDs], references: [id])
+  postIDs           String @db.ObjectId
+  posts             Post @relation(fields: [postIDs], references: [id])
+  dateConfirmed     DateTime @default(now())
+  type_of_help      type_of_help
 }
 
 model Users {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   lastName          String
-  cuil              String 
-  user_linkedin     String
-  birthDate         DateTime 
-  profession        String
+  phone             String
+  cuil              String? 
+  user_linkedin     String?
+  birthDate         DateTime? 
+  profession        String?
   email             String
   password          String
-  postIds           String[] @db.ObjectId
-  posts             Post[] @relation(fields: [postIds], references: [id])
+  type_of_user      type_of_user
+  isActive          Boolean @default(true)
+  confirmed         Confirmed[]
 }
 
-
-
-enum type_of_donor {
-  EFECTIVO
-  EN_ESPECIE
+model Companies {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  lastName          String
+  phone             String? 
+  country           String?
+  amountEmployee    String?
+  companyName       String?
+  cuit              String
+  address           String?
+  email             String
+  password          String
+  rut               String
+  type_of_user      type_of_user
+  isActive          Boolean @default(false)
 }
 
+enum type_of_help {
+  efectivo
+  especie
+  servicio
+}
+
+enum type_of_user {
+  admin
+  ong
+  companies
+  users
+}
+
+enum rubros {
+  Educacion
+  MedioAmbiente
+}
+
+//contacto.mercadosolidario@gmail.com

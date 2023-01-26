@@ -5,10 +5,10 @@ const validationPost = require('./validationPosts');
 
 // ONG singup
 module.exports = {
-    getPosts: async function(body) {
+    getPosts: async function() {
         
         const posts = await prisma.post.findMany({include: {
-            users: true
+            confirmed: true
         }});
         return posts;
     },
@@ -17,7 +17,12 @@ module.exports = {
             throw new Error("Para buscar una publicación por ID, por favor, ingrese el identificador de la misma.") 
         }
 
-        const post = await prisma.post.findUnique({where: {id}})
+        const post = await prisma.post.findUnique({
+            where: {id},
+            include: {
+                confirmed: true,
+            }
+        })
     
         if (!post) {
             throw new Error("La publicación que está buscando no existe o fue eliminada.")
@@ -37,5 +42,20 @@ module.exports = {
         // const newPost = await prisma.post.create({data: {...body, expirationDate}});
         const newPost = await prisma.post.create({data: body}); 
         return {...newPost, ...validate}
-    }
+    },
+    logicDeletePost: async function(id) {
+        if(!id) {
+          throw new Error("El ID del Post ingresado no es correcto")
+        }
+    
+        const result = await prisma.post.update({
+          where: {
+            id: id,
+          },
+          data: {
+            isActive: false,
+          },
+        });
+        return result
+      }
 }

@@ -4,15 +4,17 @@ async function isOng(body) {
   const {
     name,
     lastName,
-    country,
     phone,
-    province,
-    ongName,
-    amountEmployee,
-    ongCUIT,
+    rut,
+    cuit
   } = body;
+
+  if (!cuit) {
+    return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el CUIT.'};
+  }
+
   const getCuit = await axios.get(
-    `https://afip.tangofactura.com/Rest/GetContribuyenteFull?cuit=` + ongCUIT
+    `https://afip.tangofactura.com/Rest/GetContribuyenteFull?cuit=` + cuit
   );
   const data = getCuit.data;
   if (data.errorGetData) {
@@ -27,6 +29,18 @@ async function isOng(body) {
     return {containErrors: true, message: "El CUIT ingresado no es de una empresa sin fines de lucro."}
   }
 
+  const {nombre, domicilioFiscal} = data.Contribuyente;
+  const dataOng = {
+    ongName: nombre,
+    country: 'Argentina',
+    province: domicilioFiscal.nombreProvincia,
+    address: domicilioFiscal.direccion
+  }
+
+  if (!rut) {
+    return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el archivo del Registro Unico Tributario..'};
+  }
+
   if(!name) {
     return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el nombre.'};
   }
@@ -35,19 +49,11 @@ async function isOng(body) {
       return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el apellido.'};
   }
 
-  if(!country) {
-      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese su pais natal.'};
-  }
-  
-  if(!province) {
-    return {containErrors: true, message: 'Este campo es requerido, por favor ingrese en que provincia reside su ONG'};
-  }
-  
-  if(!ongName) {
-      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el nombre de su ONG.'};
+  if (!phone) {
+    return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el numero de contacto de la empresa sin animos de lucro.'};
   }
 
-  return {containErrors: false, message: "Usted se registro correctamente con una cuenta ONG que tiene por nombre " + ongName}
+  return {containErrors: false, message: "Usted se registro correctamente con una cuenta de ONG.", dataOng}
 }
 
 module.exports = isOng;
