@@ -19,7 +19,8 @@ model Ong {
   province          String?
   amountEmployee    String?
   ongName           String?
-  ongCUIT           String
+  address           String?
+  cuit              String
   isActive          Boolean @default(true)
   email             String
   password          String
@@ -59,26 +60,27 @@ model Users {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   lastName          String
-  cuil              String 
+  cuil              String? 
+  phone             String
   user_linkedin     String?
   birthDate         DateTime? 
   profession        String?
   email             String
   password          String
-  isActive          Boolean @default(true)
   type_of_user      type_of_user
+  isActive          Boolean @default(true)
   confirmed         Confirmed[]
 }
 
 model Companies {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
-  name              String 
+  name              String
   lastName          String
   phone             String? 
   country           String?
   amountEmployee    String?
   companyName       String?
-  companyCUIT       String
+  cuit              String
   email             String
   password          String
   rut               String
@@ -95,8 +97,8 @@ enum type_of_help {
 enum type_of_user {
   admin
   ong
-  company
-  user
+  companies
+  users
 }
 
-//
+//contacto.mercadosolidario@gmail.com
