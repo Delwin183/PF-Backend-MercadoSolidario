@@ -6,7 +6,7 @@ async function isOng(body) {
     lastName,
     phone,
     rut,
-    ongCUIT
+    cuit
   } = body;
 
   if (!cuit) {
@@ -14,7 +14,7 @@ async function isOng(body) {
   }
 
   const getCuit = await axios.get(
-    `https://afip.tangofactura.com/Rest/GetContribuyenteFull?cuit=` + ongCUIT
+    `https://afip.tangofactura.com/Rest/GetContribuyenteFull?cuit=` + cuit
   );
   const data = getCuit.data;
   if (data.errorGetData) {
@@ -53,7 +53,7 @@ async function isOng(body) {
     return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el numero de contacto de la empresa sin animos de lucro.'};
   }
 
-  return {containErrors: false, message: "Usted se registro correctamente con una cuenta de ONG."}
+  return {containErrors: false, message: "Usted se registro correctamente con una cuenta de ONG.", dataOng}
 }
 
 module.exports = isOng;

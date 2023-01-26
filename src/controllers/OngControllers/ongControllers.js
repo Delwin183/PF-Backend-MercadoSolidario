@@ -11,13 +11,13 @@ module.exports = {
     const resultIsOng = await isOng(body);
     const hashPassword = await registerOfAUser(body);
 
-    let {email, name, lastName, cuit, type_of_user, phone, amountEmployee} = body;
+    let {email, name, rut, lastName, cuit, type_of_user, phone, amountEmployee} = body;
 
     //check
     if (resultIsOng.containErrors || hashPassword.containErrors) {
       throw new Error(resultIsOng || hashPassword);
     }
-
+    
     const {ongName, country, province, address} = resultIsOng.dataOng
 
     const ong = await prisma.ong.create({
@@ -33,6 +33,7 @@ module.exports = {
         address: address ? address : undefined,
         amountEmployee: amountEmployee ? amountEmployee : undefined,
         cuit,
+        rut,
         type_of_user
       }
     });
