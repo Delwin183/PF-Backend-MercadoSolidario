@@ -81,6 +81,7 @@ model Companies {
   amountEmployee    String?
   companyName       String?
   cuit              String
+  address           String?
   email             String
   password          String
   rut               String
