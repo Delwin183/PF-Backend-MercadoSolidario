@@ -1,61 +1,92 @@
 //bring in prisma
 
-const prisma = require('../../db');
-const validationPost = require('./validationPosts');
+const prisma = require("../../db");
+const validationPost = require("./validationPosts");
 
 // ONG singup
 module.exports = {
-    getPosts: async function() {
-        
-        const posts = await prisma.post.findMany({include: {
-            confirmed: true
-        }});
-        return posts;
-    },
-    getPostsForId: async function(id){
-        if (!id) {
-            throw new Error("Para buscar una publicación por ID, por favor, ingrese el identificador de la misma.") 
-        }
+  getPosts: async function () {
+    const posts = await prisma.post.findMany({
+      include: {
+        confirmed: true,
+      },
+    });
+    return posts;
+  },
+  getPostsForId: async function (id) {
+    if (!id) {
+      throw new Error(
+        "Para buscar una publicación por ID, por favor, ingrese el identificador de la misma."
+      );
+    }
 
-        const post = await prisma.post.findUnique({
-            where: {id},
-            include: {
-                confirmed: true,
-            }
-        })
-    
-        if (!post) {
-            throw new Error("La publicación que está buscando no existe o fue eliminada.")
-        }
+    const post = await prisma.post.findUnique({
+      where: { id },
+      include: {
+        confirmed: true,
+      },
+    });
 
-        return post;
-    },
-    createPost: async function(body) {
-        const {expirationDate} = body;
-        // expirationDate = expirationDate.toISOString()
-        const validate = validationPost(body);
+    if (!post) {
+      throw new Error(
+        "La publicación que está buscando no existe o fue eliminada."
+      );
+    }
 
-        if (validate.containErrors) {
-            throw new Error(validate.message)
-        }
+    return post;
+  },
+  createPost: async function (body) {
+    const { expirationDate } = body;
+    // expirationDate = expirationDate.toISOString()
+    const validate = validationPost(body);
 
-        // const newPost = await prisma.post.create({data: {...body, expirationDate}});
-        const newPost = await prisma.post.create({data: body}); 
-        return {...newPost, ...validate}
-    },
-    logicDeletePost: async function(id) {
-        if(!id) {
-          throw new Error("El ID del Post ingresado no es correcto")
-        }
-    
-        const result = await prisma.post.update({
-          where: {
-            id: id,
-          },
-          data: {
-            isActive: false,
-          },
-        });
-        return result
-      }
-}
+    if (validate.containErrors) {
+      throw new Error(validate.message);
+    }
+
+    // const newPost = await prisma.post.create({data: {...body, expirationDate}});
+    const newPost = await prisma.post.create({ data: body });
+    return { ...newPost, ...validate };
+  },
+  logicDeletePost: async function (id) {
+    if (!id) {
+      throw new Error("El ID del Post ingresado no es correcto");
+    }
+
+    const result = await prisma.post.update({
+      where: {
+        id: id,
+      },
+      data: {
+        isActive: false,
+      },
+    });
+    return result;
+  },
+
+  UpdatePosts: async (id, body) => {
+    const {
+      title,
+      description,
+      location,
+      image,
+      resultsAchieved,
+      type_of_help,
+    } = body;
+
+    const result = await prisma.post.update({
+      where: {
+        id: id,
+      },
+      data: {
+        title: title ? title : undefined,
+        description: description ? description : undefined,
+        location: location ? location : undefined,
+        image: image ? image : undefined,
+        resultsAchieved: resultsAchieved ? resultsAchieved : undefined,
+        type_of_help: type_of_help ? type_of_help : undefined,
+      },
+    });
+    return { result, message: "Datos actualizados." };
+  },
+};
