@@ -16,7 +16,7 @@ module.exports = {
       const user = await prisma[`${type_of_user}`].findFirst({where: {email}})
       
       if (user) {
-        return {containErrors: true, message: 'Ya existe un usuario con este email'}
+        return {containErrors: true, message: 'Ya existe un usuario con este email, por favor, ingrese otra cuenta.'}
       }
       let hashPassword = await bcrypt.hash(password, 10);
       
