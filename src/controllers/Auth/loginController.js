@@ -10,23 +10,19 @@ module.exports = {
       let {email, password, type_of_user} = body;
 
       if (isValidate.containErrors) {
-        throw new Error(isValidate)        
+        throw new Error(JSON.stringify(isValidate))        
       }
-  console.log('controllerlogin1');
 
       const user = await prisma[`${type_of_user}`].findFirst({where: {email}});
       if (!user) {
-        throw new Error({containErrors: true, message: 'Por favor, registrese.'})
+        throw new Error(JSON.stringify({containErrors: true, message: 'Por favor, registrese.'}))
       }
-      console.log('controllerlogin2');
-
       let isEqual = await bcrypt.compare(password, user.password);
 
       if (!isEqual) {
-        throw new Error({containErrors: true, message: 'Contraseña incorrecta. Por favor, ingrese nuevamente.'})
+        throw new Error(JSON.stringify({containErrors: true, message: 'Contraseña incorrecta. Por favor, ingrese nuevamente.'}))
       }
-      console.log('controllerlogin3');
-
+      
       const token = jwt.sign({
         email: email,
         type_of_user: type_of_user
