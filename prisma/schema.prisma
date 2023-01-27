@@ -79,6 +79,7 @@ model Companies {
   lastName          String
   phone             String? 
   country           String?
+  province          String?
   amountEmployee    String?
   companyName       String?
   cuit              String
