@@ -68,7 +68,7 @@ module.exports = {
     return result
   },
   getDeleteONGs: async function () {
-    const result = await prisma.companies.findMany({
+    const result = await prisma.ong.findMany({
       where: {
         isActive: false,
       }
