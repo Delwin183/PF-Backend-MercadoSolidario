@@ -3,15 +3,17 @@ async function isCompany(body) {
   const {
     name,
     lastName,
-    country,
-    phone,
-    companyName,
-    amountEmployee,
-    companyCUIT,
+    cuit,
+    rut
   } = body;
+
+  if (!cuit) {
+    return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el CUIT.'};
+  }
+
   const getCuit = await axios.get(
     `https://afip.tangofactura.com/Rest/GetContribuyenteFull?cuit=` +
-      companyCUIT
+      cuit
   );
   const data = getCuit.data;
 
@@ -27,6 +29,18 @@ async function isCompany(body) {
     return {containErrors: true, message: "El CUIT ingresada no es de una empresa con fines de lucro."};
   }
 
+  const {nombre, domicilioFiscal} = data.Contribuyente;
+  const dataOng = {
+    companyName: nombre,
+    country: 'Argentina',
+    province: domicilioFiscal.nombreProvincia,
+    address: domicilioFiscal.direccion
+  }
+
+  if (!rut) {
+    return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el archivo del Registro Unico Tributario..'};
+  }
+
   if(!name) {
     return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el nombre.'};
   }
@@ -35,23 +49,7 @@ async function isCompany(body) {
       return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el apellido.'};
   }
 
-  if(!country) {
-      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese su pais natal.'};
-  }
-
-  if(!amountEmployee) {
-      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese la cantidad de empleados con los que cuenta.'};
-  }
-
-  if(!companyName) {
-      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el nombre de su empresa.'};
-  }
-
-  if(!phone) {
-      return {containErrors: true, message: 'Este campo es requerido, por favor ingrese su numero de contacto.'};
-  }
-
-  return {containErrors: false, message: "Usted registró correctamente su empresa llamada " + name + "."};
+  return {containErrors: false, message: "Usted registró correctamente con una cuenta de empresa. Felicitaciones, acá podrá encontrar posibles trabajadores con enormes virtudes solidarias.", dataOng};
 
 }
 
