@@ -5,11 +5,9 @@ const router = express.Router();
 router.post("/", async (req, res) => {
     try {
         const login = await loginOfAUser(req.body);
-  console.log('routeslogin1');
-
         res.status(200).send(login);
     } catch (error) {
-        res.status(400).json(error.message);
+        res.status(400).json(JSON.parse(error.message));
     }
 });
 
