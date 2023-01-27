@@ -5,7 +5,7 @@ const emailRouter = require("./PostsEmail/emailRouter");
 const companyRouter = require('./Companies/companiesRouter')
 const usersRouter = require('./Users/usersRouter')
 const confirmedRouter = require('./Confirmed/confirmedRouter')
-const registerRouter = require('./Auth Routes/registrationRouter')
+const loginRouter = require('./AuthRoutes/loginRouter')
 
 const router = Router();
 
@@ -15,6 +15,6 @@ router.use("/mailer", emailRouter);
 router.use('/companies', companyRouter);
 router.use('/users', usersRouter);
 router.use("/confirmed", confirmedRouter);
-router.use("/register", registerRouter);
+router.use("/login", loginRouter);
 
 module.exports = router;
