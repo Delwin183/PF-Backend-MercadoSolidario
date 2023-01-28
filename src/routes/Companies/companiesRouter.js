@@ -6,6 +6,7 @@ const {
   getCompanies,
   logicDeleteCompany,
   getDeleteCompanies,
+  UpdateCompanies,
 } = require("../../controllers/CompaniesControllers/CompaniesControllers");
 
 router.post("/newcompany", async (req, res) => {
@@ -26,14 +27,18 @@ router.get("/", async (req, res) => {
   }
 });
 
-
-
-router.put('/:id', async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const result = await logicDeleteCompany(req.params.id);
-    res.status(200).send(`La Empresa denominada ${result.companyName} se removió correctamente`)
+    res
+      .status(200)
+      .send(
+        `La Empresa denominada ${result.companyName} se removió correctamente`
+      );
   } catch (error) {
+
     res.status(400).json(JSON.parse(error.message));
+
   }
 });
 
@@ -43,6 +48,15 @@ router.get("/deleted", async (req, res) => {
     res.status(200).send(result);
   } catch (error) {
     res.status(400).json(JSON.parse(error.message));
+  }
+});
+
+router.put("/update/:id", async (req, res) => {
+  try {
+    const result = await UpdateCompanies(req.params.id, req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 });
 
