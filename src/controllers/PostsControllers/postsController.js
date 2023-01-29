@@ -41,7 +41,7 @@ module.exports = {
     const validate = validationPost(body);
 
     if (validate.containErrors) {
-      throw new Error(validate.message);
+      throw new Error(JSON.stringify(validate));
     }
 
     // const newPost = await prisma.post.create({data: {...body, expirationDate}});

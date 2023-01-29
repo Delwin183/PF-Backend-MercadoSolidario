@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     const posts = await getPosts(req.body);
     res.status(200).send(posts);
   } catch (error) {
-    res.status(400).json(JSON.parse(error.message));
+    res.status(400).json({ error: error.message });
   }
 });
 
@@ -32,7 +32,7 @@ router.post("/newpost", async (req, res) => {
     const newPost = await createPost(req.body);
     res.status(200).send(newPost);
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    res.status(400).send(JSON.parse(error.message));
   }
 });
 
