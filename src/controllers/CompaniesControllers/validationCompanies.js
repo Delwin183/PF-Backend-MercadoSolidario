@@ -30,7 +30,7 @@ async function isCompany(body) {
   }
 
   const {nombre, domicilioFiscal} = data.Contribuyente;
-  const dataOng = {
+  const dataCompany = {
     companyName: nombre,
     country: 'Argentina',
     province: domicilioFiscal.nombreProvincia,
@@ -49,7 +49,7 @@ async function isCompany(body) {
       return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el apellido.'};
   }
 
-  return {containErrors: false, message: "Usted registró correctamente con una cuenta de empresa. Felicitaciones, acá podrá encontrar posibles trabajadores con enormes virtudes solidarias.", dataOng};
+  return {containErrors: false, message: "Usted registró correctamente con una cuenta de empresa. Felicitaciones, acá podrá encontrar posibles trabajadores con enormes virtudes solidarias.", dataCompany};
 
 }
 

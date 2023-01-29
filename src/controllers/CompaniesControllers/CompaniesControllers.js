@@ -18,13 +18,11 @@ module.exports = {
       amountEmployee,
     } = body;
 
-    //check
 
-    if (hashPassword.containErrors || resultIsCompany.containErrors) {
-      throw new Error(JSON.stringify(hashPassword || resultIsCompany));
-    }
-
-    const { companyName, country, province, address } = resultIsCompany.dataOng;
+    if (hashPassword.containErrors) throw new Error(JSON.stringify(hashPassword))
+    if (resultIsCompany.containErrors) throw new Error(JSON.stringify(resultIsCompany))
+    
+    const {companyName, country, province, address} = resultIsCompany.dataCompany
 
     const company = await prisma.companies.create({
       data: {
@@ -44,8 +42,9 @@ module.exports = {
       },
     });
 
-    return { ...company, ...resultIsCompany, dataOng: null };
-  },
+    return {...company, ...resultIsCompany, dataCompany: null};
+
+ },
   getCompanies: async function () {
     const allCompanies = await prisma.companies.findMany({
       where: {
