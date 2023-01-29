@@ -25,8 +25,8 @@ model Ong {
   email             String
   password          String
   rut               String
-  type_of_user      type_of_user
   rubro             rubros[]
+  type_of_user      type_of_user
   posts             Post[] 
 }
 
@@ -44,6 +44,7 @@ model Post {
   resultsAchieved   String?
   isActive          Boolean         @default(true)
   confirmed         Confirmed[]
+  rubro             rubros[]
   type_of_help      type_of_help
 }
 
