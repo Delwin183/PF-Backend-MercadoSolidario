@@ -46,7 +46,7 @@ module.exports = {
 
  },
   getCompanies: async function () {
-    const allCompanies = await prisma.companies.findMany({
+    const allCompanies = await prisma.company.findMany({
       where: {
         isActive: true,
       },
@@ -58,7 +58,7 @@ module.exports = {
       throw new Error("La id de la empresa ingresado no es correcta");
     }
 
-    const result = await prisma.companies.update({
+    const result = await prisma.company.update({
       where: {
         id: id,
       },
@@ -69,7 +69,7 @@ module.exports = {
     return result;
   },
   getDeleteCompanies: async function () {
-    const allCompanies = await prisma.companies.findMany({
+    const allCompanies = await prisma.company.findMany({
       where: {
         isActive: false,
       },
@@ -81,7 +81,7 @@ module.exports = {
     const data = Object.fromEntries(
       Object.entries(body).filter(([key, value]) => value)
     );
-    const result = await prisma.companies.update({
+    const result = await prisma.company.update({
       where: { id },
       data,
     });
