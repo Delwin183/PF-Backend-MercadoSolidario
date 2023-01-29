@@ -50,14 +50,14 @@ model Post {
 model Confirmed {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
   userIDs           String          @db.ObjectId
-  users             Users           @relation(fields: [userIDs], references: [id])
+  users             User           @relation(fields: [userIDs], references: [id])
   postIDs           String          @db.ObjectId
   posts             Post            @relation(fields: [postIDs], references: [id])
   dateConfirmed     DateTime        @default(now())
   type_of_help      type_of_help
 }
 
-model Users {
+model User {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   lastName          String
@@ -73,7 +73,7 @@ model Users {
   confirmed         Confirmed[]
 }
 
-model Companies {
+model Company {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   lastName          String
@@ -100,8 +100,8 @@ enum type_of_help {
 enum type_of_user {
   admin
   ong
-  companies
-  users
+  company
+  user
 }
 
 enum rubros {

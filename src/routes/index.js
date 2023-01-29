@@ -10,11 +10,11 @@ const allUsersrouter = require('./AllUserTypesRoutes/AllUserTypesRoute')
 
 const router = Router();
 
-router.use("/ongs", ongRouter);
+router.use("/ong", ongRouter);
 router.use("/posts", postsRouter);
 router.use("/mailer", emailRouter);
-router.use('/companies', companyRouter);
-router.use('/users', usersRouter);
+router.use('/company', companyRouter);
+router.use('/user', usersRouter);
 router.use("/confirmed", confirmedRouter);
 router.use("/login", loginRouter);
 router.use("/allusers", allUsersrouter);
