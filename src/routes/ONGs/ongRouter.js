@@ -6,6 +6,7 @@ const {
   getOngs,
   logicDeleteONG,
   getDeleteONGs,
+  UpdateOng,
 } = require("../../controllers/OngControllers/ongControllers");
 
 router.post("/newong", async (req, res) => {
@@ -13,7 +14,7 @@ router.post("/newong", async (req, res) => {
     const newOng = await signUp(req.body);
     res.status(200).send(newOng);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json(JSON.parse(error.message));
   }
 });
 
@@ -26,12 +27,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const result = await logicDeleteONG(req.params.id);
-    res.status(200).send(`La ONG denominada ${result.ongName} se removió correctamente`)
+    res
+      .status(200)
+      .send(`La ONG denominada ${result.ongName} se removió correctamente`);
   } catch (error) {
-    res.status(400).json({error: error.message});
+    res.status(400).json({ error: error.message });
   }
 });
 
@@ -41,6 +44,15 @@ router.get("/deleted", async (req, res) => {
     res.status(200).send(result);
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+
+router.put("/update/:id", async (req, res) => {
+  try {
+    const result = await UpdateOng(req.params.id, req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 });
 
