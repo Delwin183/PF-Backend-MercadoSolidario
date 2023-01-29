@@ -84,39 +84,12 @@ module.exports = {
   },
 
   UpdateOng: async (id, body) => {
-    const {
-      name,
-      lastName,
-      phone,
-      country,
-      province,
-      amountEmployee,
-      ongName,
-      address,
-      cuit,
-      email,
-      rut,
-      type_of_user,
-    } = body;
-
+    const data = Object.fromEntries(
+      Object.entries(body).filter(([key, value]) => value)
+    );
     const result = await prisma.ong.update({
-      where: {
-        id: id,
-      },
-      data: {
-        name: name ? name : undefined,
-        lastName: lastName ? lastName : undefined,
-        phone: phone ? phone : undefined,
-        country: country ? country : undefined,
-        province: province ? province : undefined,
-        amountEmployee: amountEmployee ? amountEmployee : undefined,
-        ongName: ongName ? ongName : undefined,
-        address: address ? address : undefined,
-        cuit: cuit ? cuit : undefined,
-        email: email ? email : undefined,
-        rut: rut ? rut : undefined,
-        type_of_user: type_of_user ? type_of_user : undefined,
-      },
+      where: { id },
+      data,
     });
     return { result, message: "Datos actualizados." };
   },

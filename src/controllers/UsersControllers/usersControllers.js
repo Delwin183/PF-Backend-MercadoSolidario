@@ -102,31 +102,12 @@ module.exports = {
   },
 
   UpdateUser: async (id, body) => {
-    const {
-      name,
-      lastName,
-      phone,
-      cuil,
-      user_linkedin,
-      birthDate,
-      profession,
-      email,
-    } = body;
-
+    const data = Object.fromEntries(
+      Object.entries(body).filter(([key, value]) => value)
+    );
     const result = await prisma.users.update({
-      where: {
-        id: id,
-      },
-      data: {
-        name: name ? name : undefined,
-        lastName: lastName ? lastName : undefined,
-        phone: phone ? phone : undefined,
-        cuil: cuil ? cuil : undefined,
-        user_linkedin: user_linkedin ? user_linkedin : undefined,
-        birthDate: birthDate ? birthDate : undefined,
-        profession: profession ? profession : undefined,
-        email: email ? email : undefined,
-      },
+      where: { id },
+      data,
     });
     return { result, message: "Datos actualizados." };
   },

@@ -7,7 +7,17 @@ module.exports = {
     const hashPassword = await registerOfAUser(body);
     const resultIsCompany = await isCompany(body);
 
-    let {email, name, rut, lastName, cuit, type_of_user, phone, amountEmployee} = body;
+    let {
+      email,
+      name,
+      rut,
+      lastName,
+      cuit,
+      type_of_user,
+      phone,
+      amountEmployee,
+    } = body;
+
 
     if (hashPassword.containErrors) throw new Error(JSON.stringify(hashPassword))
     if (resultIsCompany.containErrors) throw new Error(JSON.stringify(resultIsCompany))
@@ -28,13 +38,13 @@ module.exports = {
         amountEmployee: amountEmployee ? amountEmployee : undefined,
         cuit,
         rut,
-        type_of_user
-      }
+        type_of_user,
+      },
     });
 
     return {...company, ...resultIsCompany, dataCompany: null};
 
-  },
+ },
   getCompanies: async function () {
     const allCompanies = await prisma.companies.findMany({
       where: {
@@ -68,21 +78,12 @@ module.exports = {
   },
 
   UpdateCompanies: async (id, body) => {
-    const { name, lastName, country, phone, companyName, amountEmployee } =
-      body;
-
+    const data = Object.fromEntries(
+      Object.entries(body).filter(([key, value]) => value)
+    );
     const result = await prisma.companies.update({
-      where: {
-        id: id,
-      },
-      data: {
-        name: name ? name : undefined,
-        lastName: lastName ? lastName : undefined,
-        country: country ? country : undefined,
-        companyName: companyName ? companyName : undefined,
-        phone: phone ? phone : undefined,
-        ongName: ongName ? ongName : undefined,
-      },
+      where: { id },
+      data,
     });
     return { result, message: "Datos actualizados." };
   },

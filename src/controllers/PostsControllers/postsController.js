@@ -65,27 +65,12 @@ module.exports = {
   },
 
   UpdatePosts: async (id, body) => {
-    const {
-      title,
-      description,
-      location,
-      image,
-      resultsAchieved,
-      type_of_help,
-    } = body;
-
+    const data = Object.fromEntries(
+      Object.entries(body).filter(([key, value]) => value)
+    );
     const result = await prisma.post.update({
-      where: {
-        id: id,
-      },
-      data: {
-        title: title ? title : undefined,
-        description: description ? description : undefined,
-        location: location ? location : undefined,
-        image: image ? image : undefined,
-        resultsAchieved: resultsAchieved ? resultsAchieved : undefined,
-        type_of_help: type_of_help ? type_of_help : undefined,
-      },
+      where: { id },
+      data,
     });
     return { result, message: "Datos actualizados." };
   },
