@@ -20,11 +20,11 @@ module.exports = {
     } = body;
 
     if (hashPassword.containErrors) {
-      throw new Error(hashPassword);
+      throw new Error(JSON.stringify(hashPassword));
     }
 
     if (validateUsers.containErrors) {
-      throw new Error(validateUsers);
+      throw new Error(JSON.stringify(validateUsers));
     }
 
     const user = await prisma.user.create({
@@ -105,6 +105,7 @@ module.exports = {
     const data = Object.fromEntries(
       Object.entries(body).filter(([key, value]) => value)
     );
+    console.log(data);
     const result = await prisma.user.update({
       where: { id },
       data,
