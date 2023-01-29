@@ -105,7 +105,7 @@ module.exports = {
     const data = Object.fromEntries(
       Object.entries(body).filter(([key, value]) => value)
     );
-    console.log(data);
+
     const result = await prisma.user.update({
       where: { id },
       data,
