@@ -23,9 +23,8 @@ module.exports = {
     } = body;
 
     //check
-    if (hashPassword.containErrors || resultIsOng.containErrors) {
-      throw new Error(JSON.stringify(hashPassword || resultIsOng));
-    }
+    if (hashPassword.containErrors) throw new Error(JSON.stringify(hashPassword));
+    if (resultIsOng.containErrors) throw new Error(JSON.stringify(resultIsOng));
 
     const { ongName, country, province, address } = resultIsOng.dataOng;
 

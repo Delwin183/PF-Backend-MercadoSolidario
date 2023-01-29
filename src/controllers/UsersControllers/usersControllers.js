@@ -19,8 +19,12 @@ module.exports = {
       phone,
     } = body;
 
-    if (hashPassword.containErrors || validateUsers.containErrors) {
-      throw new Error(hashPassword || validateUsers);
+    if (hashPassword.containErrors) {
+      throw new Error(hashPassword);
+    }
+
+    if (validateUsers.containErrors) {
+      throw new Error(validateUsers);
     }
 
     const user = await prisma.users.create({

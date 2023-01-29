@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     const posts = await getPosts(req.body);
     res.status(200).send(posts);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json(JSON.parse(error.message));
   }
 });
 
