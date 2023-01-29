@@ -24,7 +24,7 @@ module.exports = {
     
     const {companyName, country, province, address} = resultIsCompany.dataCompany
 
-    const company = await prisma.companies.create({
+    const company = await prisma.company.create({
       data: {
         password: hashPassword.password,
         email,
