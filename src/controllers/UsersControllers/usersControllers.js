@@ -27,7 +27,7 @@ module.exports = {
       throw new Error(validateUsers);
     }
 
-    const user = await prisma.users.create({
+    const user = await prisma.user.create({
       data: {
         password: hashPassword.password,
         email,
@@ -45,7 +45,7 @@ module.exports = {
     return { ...user, ...validateUsers };
   },
   getUsers: async function () {
-    const allUsers = await prisma.users.findMany({
+    const allUsers = await prisma.user.findMany({
       where: {
         isActive: true,
       },
@@ -62,7 +62,7 @@ module.exports = {
       );
     }
 
-    const result = await prisma.users.findUnique({
+    const result = await prisma.user.findUnique({
       where: { id },
       include: {
         confirmed: true,
@@ -79,7 +79,7 @@ module.exports = {
       throw new Error("El ID del usuario ingresado no es correcto");
     }
 
-    const result = await prisma.users.update({
+    const result = await prisma.user.update({
       where: {
         id: id,
       },
@@ -90,7 +90,7 @@ module.exports = {
     return result;
   },
   getDeleteUser: async function () {
-    const result = await prisma.users.findMany({
+    const result = await prisma.user.findMany({
       where: {
         isActive: false,
       },
@@ -105,7 +105,7 @@ module.exports = {
     const data = Object.fromEntries(
       Object.entries(body).filter(([key, value]) => value)
     );
-    const result = await prisma.users.update({
+    const result = await prisma.user.update({
       where: { id },
       data,
     });
