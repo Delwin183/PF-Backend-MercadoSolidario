@@ -18,5 +18,5 @@ router.use("/user", usersRouter);
 router.use("/confirmed", confirmedRouter);
 router.use("/login", loginRouter);
 router.use("/allusers", allUsersrouter);
-
+//quiero que ande la ruta
 module.exports = router;
