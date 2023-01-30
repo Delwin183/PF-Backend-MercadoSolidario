@@ -1,7 +1,5 @@
 const express = require("express");
-const {
-  allUsersTypes,
-} = require("../../controllers/AllUsersControllers/allUsersControllers");
+const allUsersTypes = require("../../controllers/AllUsersControllers/allUsersControllers");
 
 const router = express.Router();
 
