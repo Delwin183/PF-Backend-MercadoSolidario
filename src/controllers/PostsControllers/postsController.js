@@ -9,6 +9,7 @@ module.exports = {
     const posts = await prisma.post.findMany({
       include: {
         confirmed: true,
+        rubro: true,
       },
     });
     return posts;

@@ -27,3 +27,38 @@ module.exports = {
       return {password: hashPassword, containErrors: false, message: 'Usted se registró correctamente, muchas gracias.'};
     }
 };
+
+// const allUsersTypes = require("../AllUsersControllers/allUsersControllers");
+// module.exports = {
+//   registerOfAUser: async function (body) {
+//     let {email, password} = body;
+//     let isValidate = await validateRegister(body)
+
+//     if (isValidate.containErrors) {
+//       return isValidate
+//     }
+
+//     const allUsers = await allUsersTypes();
+//     if (allUsers.containErrors) {
+//       throw new Error(allUsers)
+//     }
+//     const user = allUsers.data.filter(user => user.email === email);
+//     console.log(user);
+
+//     if (user.length > 0) {
+//       return {containErrors: true, message: 'Ya existe un usuario con este email, por favor, ingrese otra cuenta.'}
+//     }
+
+//     if (!password) {
+//       return {password: undefined, containErrors: false, message: 'Usted se registró correctamente, muchas gracias.'};
+//     }
+
+//     let hashPassword = await bcrypt.hash(password, 10);
+    
+//     if (!hashPassword) {
+//       return {containErrors: true, message: 'Error al hashear la contraseña, por favor, intenta en unos minutos nuevamente.'}
+//     }
+
+//     return {password: hashPassword, containErrors: false, message: 'Usted se registró correctamente, muchas gracias.'};
+//   }
+// };
