@@ -76,3 +76,18 @@ async function validateRegister({email, password, type_of_user, cuit, rut, phone
 }
 
 module.exports = validateRegister;
+
+// async function validateRegister({email, type_of_user}){
+    
+//     if(!email) {
+//         return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el email.'};
+//     }
+    
+//     if(!type_of_user) {
+//         return {containErrors: true, message: 'Este campo es requerido, por favor ingrese el tipo de usuario.'};
+//     }
+   
+//     return {containErrors: false, message: 'Usted se registró correctamente, muchas gracias.'};
+// }
+
+// module.exports = validateRegister;
