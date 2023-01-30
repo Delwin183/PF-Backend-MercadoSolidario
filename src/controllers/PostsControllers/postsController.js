@@ -8,8 +8,7 @@ module.exports = {
   getPosts: async function () {
     const posts = await prisma.post.findMany({
       include: {
-        confirmed: true,
-        rubro: true,
+        confirmed: true
       },
     });
     return posts;
