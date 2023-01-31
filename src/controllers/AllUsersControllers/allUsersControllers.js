@@ -10,9 +10,9 @@ async function allUsersTypes() {
     if (!allOngs) return {message: "Hubo un error al obtener las ONG's de la BD.", containErrors: true}
 
     if (!allVolunteers) return {message: 'Hubo un error al obtener los voluntarios de la BD.', containErrors: true}
-
+    
     const allUsers = [...allCompanies, ...allOngs, ...allVolunteers]
-
-    return {data: allUsers, usersCounts: allUsers.length, containErrors: false}
+    
+    return {data: allUsers, usersCounts: allUsers.length, containErrors: false, message: "Estos son todos los usuarios registrados hasta el momento."}
 }
 module.exports = allUsersTypes;
