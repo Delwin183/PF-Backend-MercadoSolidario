@@ -53,7 +53,7 @@ module.exports = {
     const user = allUsers.data.filter(user => user.email === email);
 
     if (!user) {
-      throw new Error({containErrors: true, message: 'Por favor, registrese.'})
+      throw new Error(JSON.stringify({containErrors: true, message: 'Por favor, registrese.'}))
     }
 
     const token = jwt.sign({
@@ -66,7 +66,7 @@ module.exports = {
     }
 
     if (!password) {
-      return {containErrors: true, message: 'Por favor, ingrese su contraseña.'};
+      throw new Error(JSON.stringify({containErrors: true, message: 'Por favor, ingrese su contraseña.'}));
     }
 
     let isEqual = await bcrypt.compare(password, user[0].password);
