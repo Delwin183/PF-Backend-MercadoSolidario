@@ -51,6 +51,7 @@ module.exports = {
       },
       include: {
         confirmed: true,
+        reviews: true,
       },
     });
     return allUsers;
@@ -66,6 +67,7 @@ module.exports = {
       where: { id },
       include: {
         confirmed: true,
+        reviews: true,
       },
     });
     if (!id) {
@@ -96,6 +98,7 @@ module.exports = {
       },
       include: {
         confirmed: true,
+        reviews: true,
       },
     });
     return result;
