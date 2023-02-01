@@ -51,6 +51,9 @@ module.exports = {
       where: {
         isActive: true,
       },
+      include: {
+        reviews: true,
+      }
     });
     return allCompanies;
   },

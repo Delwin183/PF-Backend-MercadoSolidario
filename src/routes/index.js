@@ -7,6 +7,7 @@ const usersRouter = require("./Users/usersRouter");
 const confirmedRouter = require("./Confirmed/confirmedRouter");
 const loginRouter = require("./AuthRoutes/loginRouter");
 const allUsersrouter = require("./AllUsersRouter/allUsersRouter");
+const reviewRouter = require("./Reviews/reviewsRouter");
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use("/user", usersRouter);
 router.use("/confirmed", confirmedRouter);
 router.use("/login", loginRouter);
 router.use("/allusers", allUsersrouter);
+router.use("/reviews", reviewRouter);
 //quiero que ande la ruta
 module.exports = router;

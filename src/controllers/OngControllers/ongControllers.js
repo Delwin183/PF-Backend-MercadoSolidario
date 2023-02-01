@@ -55,6 +55,7 @@ module.exports = {
       },
       include: {
         posts: true,
+        reviews: true,
       },
     });
     return users;

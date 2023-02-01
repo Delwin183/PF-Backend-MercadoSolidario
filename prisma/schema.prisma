@@ -27,7 +27,8 @@ model Ong {
   rut               String
   rubro             rubros[]
   type_of_user      type_of_user
-  posts             Post[] 
+  posts             Post[]
+  reviews           Review[] 
 }
 
 model Post {
@@ -51,7 +52,7 @@ model Post {
 model Confirmed {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
   userIDs           String          @db.ObjectId
-  users             User           @relation(fields: [userIDs], references: [id])
+  users             User            @relation(fields: [userIDs], references: [id])
   postIDs           String          @db.ObjectId
   posts             Post            @relation(fields: [postIDs], references: [id])
   dateConfirmed     DateTime        @default(now())
@@ -70,8 +71,10 @@ model User {
   email             String
   password          String
   type_of_user      type_of_user
+  // type_of_insignia  insignia
   isActive          Boolean         @default(true)
   confirmed         Confirmed[]
+  reviews           Review[]
 }
 
 model Company {
@@ -90,6 +93,21 @@ model Company {
   rut               String
   type_of_user      type_of_user
   isActive          Boolean         @default(false)
+  reviews           Review[]
+}
+
+model Review {
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  comment           String
+  dateReview        DateTime        @default(now())
+  userIDs           String?          @db.ObjectId
+  users             User?            @relation(fields: [userIDs], references: [id])
+  ongIDs            String?          @db.ObjectId
+  ongs              Ong?             @relation(fields: [ongIDs], references: [id])
+  companyIDs        String?          @db.ObjectId
+  companies         Company?         @relation(fields: [companyIDs], references: [id])
+  isActive          Boolean         @default(true)
+
 }
 
 enum type_of_help {
@@ -128,5 +146,19 @@ enum rubros {
   Servicio_comunitario
   Transporte
 }
+
+enum insignia {
+  participacion
+  servicio_bronce
+  servicio_plata
+  servicio_oro
+  especie_bronce
+  especie_plata
+  especie_oro
+  dinero_bronce
+  dinero_plata
+  dinero_oro
+}
+
 
 //contacto.mercadosolidario@gmail.com
