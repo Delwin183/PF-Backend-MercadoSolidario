@@ -70,6 +70,7 @@ model User {
   profession        String?
   email             String
   password          String
+  image             String?
   type_of_user      type_of_user
   // type_of_insignia  insignia
   isActive          Boolean         @default(true)

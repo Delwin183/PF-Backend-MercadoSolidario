@@ -62,7 +62,7 @@ module.exports = {
     }, SECRET_KEY_JWT, {expiresIn: '2w'});
     
     if (loginGoogle === true) {
-      return {token, ...isValidate}
+      return {token, user, ...isValidate}
     }
 
     if (!password) {
@@ -74,6 +74,6 @@ module.exports = {
       throw new Error(JSON.stringify({containErrors: true, message: 'Contraseña incorrecta. Por favor, ingrese nuevamente.'}))
     }
     
-    return {token, ...isValidate}
+    return {token, user, ...isValidate}
   }
 };
