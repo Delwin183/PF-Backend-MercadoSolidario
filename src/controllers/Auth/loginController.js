@@ -58,6 +58,8 @@ module.exports = {
 
     const token = jwt.sign({
       email: email,
+      id: user[0].id,
+      isActive: user[0].isActive,
       type_of_user: user[0].type_of_user
     }, SECRET_KEY_JWT, {expiresIn: '2w'});
     

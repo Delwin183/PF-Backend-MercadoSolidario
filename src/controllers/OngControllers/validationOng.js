@@ -54,6 +54,26 @@ async function isOng(body) {
   }
 
   return {containErrors: false, message: "Usted se registro correctamente con una cuenta de ONG.", dataOng}
+};
+
+async function validateUpdateOng (body) {
+  const {name, lastName, cuit, country, email, type_of_user  } = body;
+
+  if (cuit) {
+    return {containErrors: true, message: 'EL CUIT es único por ONG y no se puede editar'};
+  }
+  if (email) {
+    return {containErrors: true, message: 'El email no se puede cambiar, crear nuevo usuario'};
+  }
+  if(country) {
+    return {containErrors: true, message: 'El App funciona solo en Argentina, no editar este atributo'};
+  }
+if(type_of_user !== "company" || type_of_user !== "ong" || type_of_user !== "user"){
+  return {containErrors: true, message: 'El tipo de usuario solo puede ser company, ong, user'};
+ }
+
+  return {containErrors: false, message: "Usted ha actualizado el registro correctamente"}
+
 }
 
-module.exports = isOng;
+module.exports = {isOng, validateUpdateOng};

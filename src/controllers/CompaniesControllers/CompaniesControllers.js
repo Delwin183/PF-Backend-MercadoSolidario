@@ -1,6 +1,6 @@
 const prisma = require("../../db");
 const { registerOfAUser } = require("../Auth/registrationController");
-const { isCompany } = require("./validationCompanies");
+const { isCompany, validateUpdateCompany } = require("./validationCompanies");
 
 module.exports = {
   signUp: async function (body) {
@@ -82,13 +82,20 @@ module.exports = {
   },
 
   UpdateCompanies: async (id, body) => {
+    const resultValidation  = await validateUpdateCompany(body);
+
+    if (resultValidation.containErrors) {
+      throw new Error(JSON.stringify(resultValidation));
+    };
+
     const data = Object.fromEntries(
       Object.entries(body).filter(([key, value]) => value)
     );
+
     const result = await prisma.company.update({
       where: { id },
       data,
     });
-    return { result, message: "Datos actualizados." };
+    return {...result, ...resultValidation};
   },
 };
