@@ -3,7 +3,7 @@
 const prisma = require("../../db");
 const { registerOfAUser } = require("../Auth/registrationController");
 
-const isOng = require("./validationOng");
+const {isOng, validateUpdateOng} = require("./validationOng");
 
 // ONG singup
 module.exports = {
@@ -85,6 +85,12 @@ module.exports = {
   },
 
   UpdateOng: async (id, body) => {
+    const resultValidation  = await validateUpdateOng(body);
+
+    if (resultValidation.containErrors) {
+      throw new Error(JSON.stringify(resultValidation));
+    };
+
     const data = Object.fromEntries(
       Object.entries(body).filter(([key, value]) => value)
     );
@@ -92,6 +98,6 @@ module.exports = {
       where: { id },
       data,
     });
-    return { result, message: "Datos actualizados." };
+    return {...result, ...resultValidation};
   },
 };

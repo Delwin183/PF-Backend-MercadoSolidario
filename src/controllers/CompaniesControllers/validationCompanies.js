@@ -51,6 +51,26 @@ async function isCompany(body) {
 
   return {containErrors: false, message: "Usted registró correctamente con una cuenta de empresa. Felicitaciones, acá podrá encontrar posibles trabajadores con enormes virtudes solidarias.", dataCompany};
 
+};
+
+async function validateUpdateCompany (body) {
+  const {name, lastName, cuit, country, amountEmployee, email, type_of_user  } = body;
+
+  if (cuit) {
+    return {containErrors: true, message: 'EL CUIT es único por compañia y no se puede editar'};
+  }
+  if (email) {
+    return {containErrors: true, message: 'El email no se puede cambiar, crear nuevo usuario'};
+  }
+  if(country) {
+    return {containErrors: true, message: 'El App funciona solo en Argentina, no editar este atributo'};
+  }
+if(type_of_user !== "company" || type_of_user !== "ong" || type_of_user !== "user"){
+  return {containErrors: true, message: 'El tipo de usuario solo puede ser company, ong, user'};
+ }
+
+  return {containErrors: false, message: "Usted ha actualizado el registro correctamente"}
+
 }
 
-module.exports = { isCompany };
+module.exports = { isCompany, validateUpdateCompany };
