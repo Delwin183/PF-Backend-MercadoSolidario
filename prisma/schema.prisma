@@ -67,12 +67,13 @@ model User {
   cuil              String? 
   user_linkedin     String?
   birthDate         DateTime? 
-  profession        String?
+  profession        profession
+  province          String?
   email             String
   password          String
   image             String?
   type_of_user      type_of_user
-  // type_of_insignia  insignia
+  type_of_insignia  insignia
   isActive          Boolean         @default(true)
   confirmed         Confirmed[]
   reviews           Review[]
@@ -146,20 +147,48 @@ enum rubros {
   Salud_medicina
   Servicio_comunitario
   Transporte
+  Otros
 }
 
 enum insignia {
   participacion
-  servicio_bronce
-  servicio_plata
-  servicio_oro
-  especie_bronce
-  especie_plata
-  especie_oro
-  dinero_bronce
-  dinero_plata
-  dinero_oro
+  servicio
+  especie
+  dinero
+  // servicio_bronce
+  // servicio_plata
+  // servicio_oro
+  // especie_bronce
+  // especie_plata
+  // especie_oro
+  // dinero_bronce
+  // dinero_plata
+  // dinero_oro
 }
+
+enum profession {
+  Medico
+  Ingeniero
+  Profesor
+  Abogado
+  Contador
+  Enfermero
+  Arquitecto
+  Economista
+  Dentista
+  Veterinario
+  Psicologo
+  Farmaceutico
+  Cirujano
+  Optometrista
+  Fisioterapeuta
+  TerapeutaDelHabla
+  TrabajadorSocial
+  Policia
+  Bombero
+  Militar
+}
+
 
 
 //contacto.mercadosolidario@gmail.com
