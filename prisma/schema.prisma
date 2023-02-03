@@ -110,6 +110,7 @@ model Review {
   companyIDs        String?          @db.ObjectId
   companies         Company?         @relation(fields: [companyIDs], references: [id])
   isActive          Boolean         @default(true)
+  puntuacion        String
 }
 
 model Chatbot {
@@ -117,7 +118,7 @@ model Chatbot {
   userIDs           String          @db.ObjectId
   users             User            @relation(fields: [userIDs], references: [id])
   email             String
-  ask               String
+  question          String
   answer            Boolean
 }
 
