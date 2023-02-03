@@ -77,6 +77,7 @@ model User {
   isActive          Boolean         @default(true)
   confirmed         Confirmed[]
   reviews           Review[]
+  chats             Chatbot[]
 }
 
 model Company {
@@ -109,7 +110,15 @@ model Review {
   companyIDs        String?          @db.ObjectId
   companies         Company?         @relation(fields: [companyIDs], references: [id])
   isActive          Boolean         @default(true)
+}
 
+model Chatbot {
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  userIDs           String          @db.ObjectId
+  users             User            @relation(fields: [userIDs], references: [id])
+  email             String
+  ask               String
+  answer            Boolean
 }
 
 enum type_of_help {
@@ -187,6 +196,7 @@ enum profession {
   Policia
   Bombero
   Militar
+  Otros
 }
 
 
