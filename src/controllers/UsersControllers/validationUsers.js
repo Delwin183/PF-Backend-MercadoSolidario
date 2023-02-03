@@ -32,6 +32,23 @@ async function validateUser(body){
 
     return {containErrors: false, message: 'Usted se registró correctamente, muchas gracias.'};
 
-}
+};
 
-module.exports = validateUser;
+async function validateUpdateUser (body) {
+    const {name, lastName, cuil, email, type_of_user  } = body;
+  
+    if (cuil) {
+      return {containErrors: true, message: 'EL CUIL es único por persona y no se puede editar'};
+    }
+    if (email) {
+      return {containErrors: true, message: 'El email no se puede cambiar, crear nuevo usuario'};
+    }
+    if(type_of_user !== "company" || type_of_user !== "ong" || type_of_user !== "user"){
+    return {containErrors: true, message: 'El tipo de usuario solo puede ser company, ong, user'};
+    }
+  
+    return {containErrors: false, message: "Usted ha actualizado el registro correctamente"}
+  
+  }
+
+module.exports = {validateUser, validateUpdateUser};

@@ -27,7 +27,8 @@ model Ong {
   rut               String
   rubro             rubros[]
   type_of_user      type_of_user
-  posts             Post[] 
+  posts             Post[]
+  reviews           Review[] 
 }
 
 model Post {
@@ -51,7 +52,7 @@ model Post {
 model Confirmed {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
   userIDs           String          @db.ObjectId
-  users             User           @relation(fields: [userIDs], references: [id])
+  users             User            @relation(fields: [userIDs], references: [id])
   postIDs           String          @db.ObjectId
   posts             Post            @relation(fields: [postIDs], references: [id])
   dateConfirmed     DateTime        @default(now())
@@ -66,12 +67,17 @@ model User {
   cuil              String? 
   user_linkedin     String?
   birthDate         DateTime? 
-  profession        String?
+  profession        profession
+  province          String?
   email             String
   password          String
+  image             String?
   type_of_user      type_of_user
+  type_of_insignia  insignia
   isActive          Boolean         @default(true)
   confirmed         Confirmed[]
+  reviews           Review[]
+  chats             Chatbot[]
 }
 
 model Company {
@@ -90,6 +96,30 @@ model Company {
   rut               String
   type_of_user      type_of_user
   isActive          Boolean         @default(false)
+  reviews           Review[]
+}
+
+model Review {
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  comment           String
+  dateReview        DateTime        @default(now())
+  userIDs           String?          @db.ObjectId
+  users             User?            @relation(fields: [userIDs], references: [id])
+  ongIDs            String?          @db.ObjectId
+  ongs              Ong?             @relation(fields: [ongIDs], references: [id])
+  companyIDs        String?          @db.ObjectId
+  companies         Company?         @relation(fields: [companyIDs], references: [id])
+  isActive          Boolean         @default(true)
+  puntuacion        String
+}
+
+model Chatbot {
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  userIDs           String          @db.ObjectId
+  users             User            @relation(fields: [userIDs], references: [id])
+  email             String
+  question          String
+  answer            Boolean
 }
 
 enum type_of_help {
@@ -127,6 +157,49 @@ enum rubros {
   Salud_medicina
   Servicio_comunitario
   Transporte
+  Otros
 }
+
+enum insignia {
+  participacion
+  servicio
+  especie
+  dinero
+  // servicio_bronce
+  // servicio_plata
+  // servicio_oro
+  // especie_bronce
+  // especie_plata
+  // especie_oro
+  // dinero_bronce
+  // dinero_plata
+  // dinero_oro
+}
+
+enum profession {
+  Medico
+  Ingeniero
+  Profesor
+  Abogado
+  Contador
+  Enfermero
+  Arquitecto
+  Economista
+  Dentista
+  Veterinario
+  Psicologo
+  Farmaceutico
+  Cirujano
+  Optometrista
+  Fisioterapeuta
+  TerapeutaDelHabla
+  TrabajadorSocial
+  Policia
+  Bombero
+  Militar
+  Otros
+}
+
+
 
 //contacto.mercadosolidario@gmail.com

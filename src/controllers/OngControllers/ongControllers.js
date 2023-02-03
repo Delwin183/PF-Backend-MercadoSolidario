@@ -3,7 +3,7 @@
 const prisma = require("../../db");
 const { registerOfAUser } = require("../Auth/registrationController");
 
-const isOng = require("./validationOng");
+const {isOng, validateUpdateOng} = require("./validationOng");
 
 // ONG singup
 module.exports = {
@@ -55,11 +55,13 @@ module.exports = {
       },
       include: {
         posts: true,
+        reviews: true,
       },
     });
     return users;
   },
-  logicDeleteONG: async function (id) {
+  logicDeleteONG: async function (id, body) {
+    const {isActive} = body;
     if (!id) {
       throw new Error("La id de la ONG ingresada no es correcta");
     }
@@ -69,7 +71,7 @@ module.exports = {
         id: id,
       },
       data: {
-        isActive: false,
+        isActive: isActive,
       },
     });
     return result;
@@ -84,6 +86,12 @@ module.exports = {
   },
 
   UpdateOng: async (id, body) => {
+    const resultValidation  = await validateUpdateOng(body);
+
+    if (resultValidation.containErrors) {
+      throw new Error(JSON.stringify(resultValidation));
+    };
+
     const data = Object.fromEntries(
       Object.entries(body).filter(([key, value]) => value)
     );
@@ -91,6 +99,6 @@ module.exports = {
       where: { id },
       data,
     });
-    return { result, message: "Datos actualizados." };
+    return {...result, ...resultValidation};
   },
 };

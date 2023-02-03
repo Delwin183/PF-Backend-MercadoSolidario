@@ -5,8 +5,14 @@ async function allUsersTypes() {
     const allOngs = await prisma.ong.findMany();
     const allVolunteers = await prisma.user.findMany();
 
-    const allUsers = [...allCompanies, ...allOngs, ...allVolunteers]
+    if (!allCompanies) return {message: 'Hubo un error al obtener las companías de la BD.', containErrors: true}
 
-    return {data: allUsers, usersCounts: allUsers.length, containErrors: false}
+    if (!allOngs) return {message: "Hubo un error al obtener las ONG's de la BD.", containErrors: true}
+
+    if (!allVolunteers) return {message: 'Hubo un error al obtener los voluntarios de la BD.', containErrors: true}
+    
+    const allUsers = [...allCompanies, ...allOngs, ...allVolunteers]
+    
+    return {data: allUsers, usersCounts: allUsers.length, containErrors: false, message: "Estos son todos los usuarios registrados hasta el momento."}
 }
 module.exports = allUsersTypes;

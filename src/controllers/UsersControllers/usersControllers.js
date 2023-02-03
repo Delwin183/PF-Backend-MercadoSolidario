@@ -1,6 +1,6 @@
 const prisma = require("../../db");
 const { registerOfAUser } = require("../Auth/registrationController");
-const validateUser = require("./validationUsers");
+const {validateUser, validateUpdateUser} = require("./validationUsers");
 
 module.exports = {
   signUp: async function (body) {
@@ -17,6 +17,9 @@ module.exports = {
       profession,
       type_of_user,
       phone,
+      type_of_insignia,
+      image,
+      province
     } = body;
 
     if (hashPassword.containErrors) {
@@ -34,13 +37,15 @@ module.exports = {
         name,
         lastName,
         phone,
+        province: province ? province : undefined,
+        image: image ? image : undefined,
         cuil: cuil ? cuil : undefined,
         user_linkedin: user_linkedin ? user_linkedin : undefined,
         birthDate: birthDate ? birthDate : undefined,
         profession: profession ? profession : undefined,
+        type_of_insignia: type_of_insignia ? type_of_insignia : undefined,
         type_of_user,
-      },
-      include: { confirmed: true },
+      }
     });
     return { ...user, ...validateUsers };
   },
@@ -51,6 +56,7 @@ module.exports = {
       },
       include: {
         confirmed: true,
+        reviews: true,
       },
     });
     return allUsers;
@@ -66,6 +72,7 @@ module.exports = {
       where: { id },
       include: {
         confirmed: true,
+        reviews: true,
       },
     });
     if (!id) {
@@ -74,7 +81,8 @@ module.exports = {
 
     return result;
   },
-  logicDeleteUser: async function (id) {
+  logicDeleteUser: async function (id, body) {
+    const {isActive} = body;
     if (!id) {
       throw new Error("El ID del usuario ingresado no es correcto");
     }
@@ -84,7 +92,7 @@ module.exports = {
         id: id,
       },
       data: {
-        isActive: false,
+        isActive: isActive,
       },
     });
     return result;
@@ -96,12 +104,19 @@ module.exports = {
       },
       include: {
         confirmed: true,
+        reviews: true,
       },
     });
     return result;
   },
 
   UpdateUser: async (id, body) => {
+    const resultValidation  = await validateUpdateUser(body);
+
+    if (resultValidation.containErrors) {
+      throw new Error(JSON.stringify(resultValidation));
+    };
+
     const data = Object.fromEntries(
       Object.entries(body).filter(([key, value]) => value)
     );
@@ -110,6 +125,6 @@ module.exports = {
       where: { id },
       data,
     });
-    return { result, message: "Datos actualizados." };
+    return {...result, ...resultValidation};
   },
 };

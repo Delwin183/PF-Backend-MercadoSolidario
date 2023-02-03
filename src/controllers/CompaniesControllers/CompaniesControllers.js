@@ -1,6 +1,6 @@
 const prisma = require("../../db");
 const { registerOfAUser } = require("../Auth/registrationController");
-const { isCompany } = require("./validationCompanies");
+const { isCompany, validateUpdateCompany } = require("./validationCompanies");
 
 module.exports = {
   signUp: async function (body) {
@@ -51,10 +51,14 @@ module.exports = {
       where: {
         isActive: true,
       },
+      include: {
+        reviews: true,
+      }
     });
     return allCompanies;
   },
-  logicDeleteCompany: async function (id) {
+  logicDeleteCompany: async function (id, body) {
+    const {isActive} = body;
     if (!id) {
       throw new Error("La id de la empresa ingresado no es correcta");
     }
@@ -64,7 +68,7 @@ module.exports = {
         id: id,
       },
       data: {
-        isActive: false,
+        isActive: isActive,
       },
     });
     return result;
@@ -79,13 +83,20 @@ module.exports = {
   },
 
   UpdateCompanies: async (id, body) => {
+    const resultValidation  = await validateUpdateCompany(body);
+
+    if (resultValidation.containErrors) {
+      throw new Error(JSON.stringify(resultValidation));
+    };
+
     const data = Object.fromEntries(
       Object.entries(body).filter(([key, value]) => value)
     );
+
     const result = await prisma.company.update({
       where: { id },
       data,
     });
-    return { result, message: "Datos actualizados." };
+    return {...result, ...resultValidation};
   },
 };

@@ -38,7 +38,7 @@ router.post("/newpost", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const result = await logicDeletePost(req.params.id);
+    const result = await logicDeletePost(req.params.id, req.body);
     res.status(200).send(`El Post ${result.title} se removió correctamente`);
   } catch (error) {
     res.status(400).json({ error: error.message });
