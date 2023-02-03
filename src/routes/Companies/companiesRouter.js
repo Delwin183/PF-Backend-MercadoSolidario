@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const result = await logicDeleteCompany(req.params.id);
+    const result = await logicDeleteCompany(req.params.id, req.body);
     res
       .status(200)
       .send(

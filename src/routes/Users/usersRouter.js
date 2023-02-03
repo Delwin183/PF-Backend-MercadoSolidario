@@ -49,7 +49,7 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const result = await logicDeleteUser(req.params.id);
+    const result = await logicDeleteUser(req.params.id, req.body);
     res
       .status(200)
       .send(

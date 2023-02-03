@@ -57,7 +57,8 @@ module.exports = {
     });
     return allCompanies;
   },
-  logicDeleteCompany: async function (id) {
+  logicDeleteCompany: async function (id, body) {
+    const {isActive} = body;
     if (!id) {
       throw new Error("La id de la empresa ingresado no es correcta");
     }
@@ -67,7 +68,7 @@ module.exports = {
         id: id,
       },
       data: {
-        isActive: false,
+        isActive: isActive,
       },
     });
     return result;
