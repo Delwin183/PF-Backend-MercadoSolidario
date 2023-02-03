@@ -81,7 +81,8 @@ module.exports = {
 
     return result;
   },
-  logicDeleteUser: async function (id) {
+  logicDeleteUser: async function (id, body) {
+    const {isActive} = body;
     if (!id) {
       throw new Error("El ID del usuario ingresado no es correcto");
     }
@@ -91,7 +92,7 @@ module.exports = {
         id: id,
       },
       data: {
-        isActive: false,
+        isActive: isActive,
       },
     });
     return result;

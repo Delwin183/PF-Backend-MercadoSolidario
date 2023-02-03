@@ -60,7 +60,8 @@ module.exports = {
     });
     return users;
   },
-  logicDeleteONG: async function (id) {
+  logicDeleteONG: async function (id, body) {
+    const {isActive} = body;
     if (!id) {
       throw new Error("La id de la ONG ingresada no es correcta");
     }
@@ -70,7 +71,7 @@ module.exports = {
         id: id,
       },
       data: {
-        isActive: false,
+        isActive: isActive,
       },
     });
     return result;
