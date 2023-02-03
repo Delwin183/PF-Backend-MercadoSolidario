@@ -7,6 +7,7 @@ const {
   getPostsForId,
   logicDeletePost,
   UpdatePosts,
+  getPostsByUser,
 } = require("../../controllers/PostsControllers/postsController");
 
 router.get("/", async (req, res) => {
@@ -53,5 +54,14 @@ router.put("/update/:id", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
+router.get("/userconfirmed/:id", async (req, res) => {
+  try {
+    const result = await getPostsByUser(req.params.id);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+})
 
 module.exports = router;
