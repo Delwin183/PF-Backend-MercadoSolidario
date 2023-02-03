@@ -18,7 +18,8 @@ module.exports = {
       type_of_user,
       phone,
       type_of_insignia,
-      image
+      image,
+      province
     } = body;
 
     if (hashPassword.containErrors) {
@@ -36,6 +37,7 @@ module.exports = {
         name,
         lastName,
         phone,
+        province: province ? province : undefined,
         image: image ? image : undefined,
         cuil: cuil ? cuil : undefined,
         user_linkedin: user_linkedin ? user_linkedin : undefined,
