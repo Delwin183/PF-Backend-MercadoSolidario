@@ -17,6 +17,8 @@ module.exports = {
       profession,
       type_of_user,
       phone,
+      type_of_insignia,
+      image
     } = body;
 
     if (hashPassword.containErrors) {
@@ -34,13 +36,14 @@ module.exports = {
         name,
         lastName,
         phone,
+        image: image ? image : undefined,
         cuil: cuil ? cuil : undefined,
         user_linkedin: user_linkedin ? user_linkedin : undefined,
         birthDate: birthDate ? birthDate : undefined,
         profession: profession ? profession : undefined,
+        type_of_insignia: type_of_insignia ? type_of_insignia : undefined,
         type_of_user,
-      },
-      include: { confirmed: true },
+      }
     });
     return { ...user, ...validateUsers };
   },

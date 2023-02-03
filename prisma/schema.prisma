@@ -187,6 +187,7 @@ enum profession {
   Policia
   Bombero
   Militar
+  Otros
 }
 
 
