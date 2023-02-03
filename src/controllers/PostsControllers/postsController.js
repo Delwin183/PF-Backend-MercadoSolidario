@@ -65,7 +65,6 @@ module.exports = {
     });
     return result;
   },
-
   UpdatePosts: async (id, body) => {
     const data = Object.fromEntries(
       Object.entries(body).filter(([key, value]) => value)
@@ -76,4 +75,15 @@ module.exports = {
     });
     return { result, message: "Datos actualizados." };
   },
+
+  getPostsByUser : async (id) => {
+    const postFilter = await prisma.post.findMany({
+      where: {
+        confirmed: {
+          some: {userIDs: id}
+        }
+      }
+    })
+    return postFilter;
+  }
 };
