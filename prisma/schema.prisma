@@ -16,16 +16,16 @@ model Ong {
   lastName          String
   phone             String
   country           String?
-  province          String?
+  province          provincia
   amountEmployee    String?
   ongName           String?
   address           String?
   cuit              String
   isActive          Boolean         @default(false)
-  email             String
+  email             String @unique
   password          String
   rut               String
-  rubro             rubros[]
+  rubro             rubros
   type_of_user      type_of_user
   posts             Post[]
   reviews           Review[] 
@@ -40,12 +40,12 @@ model Post {
   updateDate        DateTime?       @default(now())
   title             String
   description       String?
-  location          String
+  province          provincia?
   image             String?
   resultsAchieved   String?
   isActive          Boolean         @default(true)
   confirmed         Confirmed[]
-  rubro             rubros[]
+  rubro             rubros
   type_of_help      type_of_help
 }
 
@@ -63,17 +63,17 @@ model User {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   lastName          String
-  phone             String
-  cuil              String? 
+  phone             String?
   user_linkedin     String?
-  birthDate         DateTime? 
   profession        profession
-  province          String?
-  email             String
-  password          String
+  province          provincia?
+  email             String @unique
   image             String?
+  type_of_insignia  insignia?
+  cuil              String? 
+  birthDate         DateTime? 
+  password          String?
   type_of_user      type_of_user
-  type_of_insignia  insignia
   isActive          Boolean         @default(true)
   confirmed         Confirmed[]
   reviews           Review[]
@@ -86,12 +86,12 @@ model Company {
   lastName          String
   phone             String? 
   country           String?
-  province          String?
+  province          provincia
   amountEmployee    String?
   companyName       String?
   cuit              String
   address           String?
-  email             String
+  email             String @unique
   password          String
   rut               String
   type_of_user      type_of_user
@@ -117,7 +117,7 @@ model Chatbot {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
   userIDs           String          @db.ObjectId
   users             User            @relation(fields: [userIDs], references: [id])
-  email             String
+  email             String @unique
   question          String
   answer            Boolean
 }
@@ -200,6 +200,31 @@ enum profession {
   Otros
 }
 
+enum provincia {
+  BuenosAires
+  Catamarca
+  Chaco
+  Chubut
+  Cordoba
+  Corrientes
+  EntreRios
+  Formosa
+  Jujuy
+  LaPampa
+  LaRioja
+  Mendoza
+  Misiones
+  Neuquen
+  RioNegro
+  Salta
+  SanJuan
+  SanLuis
+  SantaCruz
+  SantaFe
+  SantiagoDelEstero
+  TierraDelFuego
+  Tucuman
+}
 
 
 //contacto.mercadosolidario@gmail.com
