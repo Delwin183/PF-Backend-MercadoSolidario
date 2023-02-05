@@ -23,7 +23,7 @@ model Ong {
   cuit              String
   isActive          Boolean         @default(false)
   email             String @unique
-  password          String
+  password          String?
   rut               String
   rubro             rubros?
   type_of_user      type_of_user
@@ -92,7 +92,7 @@ model Company {
   cuit              String
   address           String?
   email             String @unique
-  password          String
+  password          String?
   rut               String
   type_of_user      type_of_user
   isActive          Boolean         @default(false)
