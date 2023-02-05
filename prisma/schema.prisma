@@ -118,7 +118,7 @@ model Chatbot {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
   email             String 
   question          String
-  answer            Boolean
+  answer            Boolean? @default(false)
 }
 
 enum type_of_help {
