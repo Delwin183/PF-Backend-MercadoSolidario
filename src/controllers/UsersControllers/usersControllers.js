@@ -124,6 +124,7 @@ module.exports = {
     const result = await prisma.user.update({
       where: { id },
       data,
+      include: {confirmed: true, reviews: true}
     });
     return {...result, ...resultValidation};
   },
