@@ -17,6 +17,9 @@ module.exports = {
             data: body
         });
         return {...result, ...validation};
-
-    }
+    },
+    updateChatbot: async function (id) {
+        const allConfirmed = await prisma.chatbot.update({where: id, data: {answer: true}});
+        return allConfirmed;
+    },
 }
