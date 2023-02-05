@@ -23,9 +23,9 @@ model Ong {
   cuit              String
   isActive          Boolean         @default(false)
   email             String @unique
-  password          String
+  password          String?
   rut               String
-  rubro             rubros
+  rubro             rubros?
   type_of_user      type_of_user
   posts             Post[]
   reviews           Review[] 
@@ -45,7 +45,7 @@ model Post {
   resultsAchieved   String?
   isActive          Boolean         @default(true)
   confirmed         Confirmed[]
-  rubro             rubros
+  rubro             rubros?
   type_of_help      type_of_help
 }
 
@@ -92,7 +92,7 @@ model Company {
   cuit              String
   address           String?
   email             String @unique
-  password          String
+  password          String?
   rut               String
   type_of_user      type_of_user
   isActive          Boolean         @default(false)

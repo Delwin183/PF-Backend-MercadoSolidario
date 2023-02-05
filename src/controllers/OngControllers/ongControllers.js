@@ -20,13 +20,15 @@ module.exports = {
       type_of_user,
       phone,
       amountEmployee,
+      rubro,
+      province
     } = body;
 
     //check
     if (hashPassword.containErrors) throw new Error(JSON.stringify(hashPassword));
     if (resultIsOng.containErrors) throw new Error(JSON.stringify(resultIsOng));
 
-    const { ongName, country, province, address } = resultIsOng.dataOng;
+    const { ongName, country, address } = resultIsOng.dataOng;
 
     const ong = await prisma.ong.create({
       data: {
@@ -40,6 +42,7 @@ module.exports = {
         province: province ? province : undefined,
         address: address ? address : undefined,
         amountEmployee: amountEmployee ? amountEmployee : undefined,
+        rubro: rubro ? rubro : undefined,
         cuit,
         rut,
         type_of_user,
