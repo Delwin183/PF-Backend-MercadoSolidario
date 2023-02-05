@@ -9,10 +9,6 @@ function validationChat(body) {
         return {containErrors: true, message: "La pregunta es obligatoria, por favor llena ese campo."}
     };
 
-    if (!answer) {
-        return {containErrors: true, message: "La respuesta es obligatoria, por favor llena ese campo."}
-    };
-
     return {containErrors: false, message: "Tu chat se creó exitosamente"}
 };
 
