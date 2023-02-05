@@ -1,9 +1,5 @@
 function validationChat(body) {
-    const {userIDs, email, question, answer} = body;
-    
-    if (!userIDs) {
-        return {containErrors: true, message: "El ID del usuario debe existir obligatoriamente para que se relacione con el Chat"}
-    };
+    const {email, question, answer} = body;
 
     if (!email) {
         return {containErrors: true, message: "El email es obligatorio, por favor llena ese campo."}
