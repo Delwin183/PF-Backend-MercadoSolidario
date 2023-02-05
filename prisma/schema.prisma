@@ -77,7 +77,6 @@ model User {
   isActive          Boolean         @default(true)
   confirmed         Confirmed[]
   reviews           Review[]
-  chats             Chatbot[]
 }
 
 model Company {
@@ -115,8 +114,6 @@ model Review {
 
 model Chatbot {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
-  userIDs           String          @db.ObjectId
-  users             User            @relation(fields: [userIDs], references: [id])
   email             String @unique
   question          String
   answer            Boolean
