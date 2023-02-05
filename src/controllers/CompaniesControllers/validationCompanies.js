@@ -33,7 +33,6 @@ async function isCompany(body) {
   const dataCompany = {
     companyName: nombre,
     country: 'Argentina',
-    province: domicilioFiscal.nombreProvincia,
     address: domicilioFiscal.direccion
   }
 

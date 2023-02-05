@@ -16,6 +16,7 @@ module.exports = {
       type_of_user,
       phone,
       amountEmployee,
+      province
     } = body;
 
     if (hashPassword.containErrors)
@@ -23,7 +24,7 @@ module.exports = {
     if (resultIsCompany.containErrors)
       throw new Error(JSON.stringify(resultIsCompany));
 
-    const { companyName, country, province, address } =
+    const { companyName, country, address } =
       resultIsCompany.dataCompany;
 
     const company = await prisma.company.create({
