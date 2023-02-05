@@ -1,5 +1,5 @@
-const prisma =require("../../db");
-validationChat = require("./validationChat")
+const prisma = require("../../db");
+const validationChat = require("./validationChat")
 
 module.exports = {
     getChats: async function () {
