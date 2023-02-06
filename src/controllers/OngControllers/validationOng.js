@@ -68,10 +68,6 @@ async function validateUpdateOng (body) {
   if(country) {
     return {containErrors: true, message: 'El App funciona solo en Argentina, no editar este atributo'};
   }
-if(type_of_user !== "company" || type_of_user !== "ong" || type_of_user !== "user"){
-  return {containErrors: true, message: 'El tipo de usuario solo puede ser company, ong, user'};
- }
-
   return {containErrors: false, message: "Usted ha actualizado el registro correctamente"}
 
 }
