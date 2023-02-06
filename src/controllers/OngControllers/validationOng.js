@@ -65,8 +65,6 @@ async function validateUpdateOng (body) {
   if (email) {
     return {containErrors: true, message: 'El email no se puede cambiar, crear nuevo usuario'};
   }
-  
-
 
   return {containErrors: false, message: "Usted ha actualizado el registro correctamente"}
 
