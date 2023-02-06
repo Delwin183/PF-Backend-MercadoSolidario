@@ -1,5 +1,5 @@
-const prisma =require("../../db");
-validationChat = require("./validationChat")
+const prisma = require("../../db");
+const validationChat = require("./validationChat")
 
 module.exports = {
     getChats: async function () {
@@ -17,6 +17,9 @@ module.exports = {
             data: body
         });
         return {...result, ...validation};
-
-    }
+    },
+    updateChatbot: async function (id) {
+        const allConfirmed = await prisma.chatbot.update({where: id, data: {answer: true}});
+        return allConfirmed;
+    },
 }

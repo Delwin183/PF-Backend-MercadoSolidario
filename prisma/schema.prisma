@@ -22,7 +22,7 @@ model Ong {
   address           String?
   cuit              String
   isActive          Boolean         @default(false)
-  email             String @unique
+  email             String 
   password          String?
   rut               String
   rubro             rubros?
@@ -57,6 +57,8 @@ model Confirmed {
   posts             Post            @relation(fields: [postIDs], references: [id])
   dateConfirmed     DateTime        @default(now())
   type_of_help      type_of_help
+  amount            String?
+  readQR            Boolean?        @default(false)
 }
 
 model User {
@@ -67,7 +69,7 @@ model User {
   user_linkedin     String?
   profession        profession
   province          provincia?
-  email             String @unique
+  email             String 
   image             String?
   type_of_insignia  insignia?
   cuil              String? 
@@ -90,7 +92,7 @@ model Company {
   companyName       String?
   cuit              String
   address           String?
-  email             String @unique
+  email             String 
   password          String?
   rut               String
   type_of_user      type_of_user
@@ -114,9 +116,9 @@ model Review {
 
 model Chatbot {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
-  email             String @unique
+  email             String 
   question          String
-  answer            Boolean
+  answer            Boolean? @default(false)
 }
 
 enum type_of_help {
