@@ -35,7 +35,7 @@ async function validateUser(body){
 };
 
 async function validateUpdateUser (body) {
-    const {type_of_insignia, cuil, email} = body;
+    const {cuil, email} = body;
 
     if (cuil) {
       return {containErrors: true, message: 'EL CUIL es único por persona y no se puede editar'};
@@ -43,10 +43,6 @@ async function validateUpdateUser (body) {
 
     if (email) {
       return {containErrors: true, message: 'El email no se puede cambiar, crear nuevo usuario'};
-    }
-
-    if(type_of_insignia !== "participacion" && type_of_insignia !== "servicio" && type_of_insignia !== "especie" && type_of_insignia !== "dinero"){
-      return {containErrors: true, message: 'El tipo de insignia solo puede ser participacion, servicio, especie o dinero'};
     }
   
     return {containErrors: false, message: "Usted ha actualizado el registro correctamente"}
