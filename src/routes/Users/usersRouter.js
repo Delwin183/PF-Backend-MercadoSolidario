@@ -9,6 +9,7 @@ const {
   logicDeleteUser,
   getDeleteUser,
   UpdateUser,
+  otorgarInsignias,
 } = require("../../controllers/UsersControllers/usersControllers");
 
 router.post("/newuser", async (req, res) => {
@@ -57,6 +58,15 @@ router.put("/:id", async (req, res) => {
       );
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+
+router.put("/update/insignia/:id", async (req, res) => {
+  try {
+    const result = await otorgarInsignias(req.params.id, req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 });
 

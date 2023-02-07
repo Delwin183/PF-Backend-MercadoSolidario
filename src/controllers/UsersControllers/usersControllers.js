@@ -109,7 +109,6 @@ module.exports = {
     });
     return result;
   },
-
   UpdateUser: async (id, body) => {
     const resultValidation  = await validateUpdateUser(body);
 
@@ -127,5 +126,14 @@ module.exports = {
       include: {confirmed: true, reviews: true}
     });
     return {...result, ...resultValidation};
+  },
+  otorgarInsignias: async (id, body) => {
+    const {type_of_insignia} = body
+
+    const result = await prisma.user.update({
+      where: { id },
+      data: {type_of_insignia}
+    });
+    return result;
   },
 };
