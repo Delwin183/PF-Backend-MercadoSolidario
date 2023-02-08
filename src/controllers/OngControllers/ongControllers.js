@@ -65,18 +65,39 @@ module.exports = {
     });
     return users;
   },
+  getOngById: async function (id) {
+    if (!id) {
+      throw new Error(
+        "Para buscar una ONG por ID, por favor, ingrese el identificador de la misma."
+      );
+    }
+
+    if (!id) {
+      throw new Error("El usuario que busca no existe.");
+    }
+
+    const result = await prisma.ong.findUnique({
+      where: { id },
+      include: {
+        reviews: true
+      },
+    });
+
+    return result;
+  },
   logicDeleteONG: async function (id, body) {
     const {isActive} = body;
     if (!id) {
       throw new Error("La id de la ONG ingresada no es correcta");
     }
 
+    console.log(isActive)
     const result = await prisma.ong.update({
       where: {
         id: id,
       },
       data: {
-        isActive: isActive,
+        isActive: typeof isActive === "boolean" ? isActive : Boolean(isActive),
       },
     });
     return result;

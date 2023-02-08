@@ -32,9 +32,7 @@ router.put("/:id", async (req, res) => {
     const result = await logicDeleteCompany(req.params.id, req.body);
     res
       .status(200)
-      .send(
-        `La Empresa denominada ${result.companyName} se removió correctamente`
-      );
+      .send(`La EMPRESA denominada ${result.companyName} se puso en ${result.isActive.toString().toUpperCase()} correctamente`);
   } catch (error) {
 
     res.status(400).json(error.message);

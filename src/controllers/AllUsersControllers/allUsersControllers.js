@@ -2,17 +2,17 @@ const prisma = require("../../db");
 
 async function allUsersTypes() {
     const allCompanies = await prisma.company.findMany({
-        where: {
-            isActive: true,
-          },
+        // where: {
+        //     isActive: true,
+        //   },
           include: {
             reviews: true,
           },
     });
     const allOngs = await prisma.ong.findMany({
-        where: {
-            isActive: true,
-          },
+        // where: {
+        //     isActive: true,
+        //   },
           include: {
             posts: true,
             reviews: true,
