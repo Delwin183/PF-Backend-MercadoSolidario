@@ -15,6 +15,7 @@ module.exports = {
       cuit,
       type_of_user,
       phone,
+      image,
       amountEmployee,
       province
     } = body;
@@ -33,6 +34,7 @@ module.exports = {
         email,
         name,
         lastName,
+        image: image? image : "https://i.postimg.cc/qq7YhN0Q/Avatar-Companies.jpg",
         phone: phone ? phone : undefined,
         companyName: companyName ? companyName : undefined,
         country: country ? country : undefined,
