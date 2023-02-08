@@ -71,7 +71,7 @@ module.exports = {
         id: id,
       },
       data: {
-        isActive: isActive,
+        isActive: typeof isActive === "boolean" ? isActive : Boolean(isActive)
       },
     });
     return result;

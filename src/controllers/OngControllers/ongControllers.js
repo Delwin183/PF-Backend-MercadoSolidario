@@ -71,12 +71,13 @@ module.exports = {
       throw new Error("La id de la ONG ingresada no es correcta");
     }
 
+    console.log(isActive)
     const result = await prisma.ong.update({
       where: {
         id: id,
       },
       data: {
-        isActive: isActive,
+        isActive: typeof isActive === "boolean" ? isActive : Boolean(isActive),
       },
     });
     return result;
