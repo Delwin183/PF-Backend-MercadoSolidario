@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
         const login = await loginOfAUser(req.body);
         res.status(200).send(login);
     } catch (error) {
-        res.status(400).json(error.message);
+        res.status(400).send(JSON.parse(error.message));
     }
 });
 

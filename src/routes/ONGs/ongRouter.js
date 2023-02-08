@@ -28,12 +28,30 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/deleted", async (req, res) => {
+  try {
+    const result = await getDeleteONGs();
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+});
+
 router.get("/:id", async (req, res) => {
   try {
     const ong = await getOngById(req.params.id);
     res.status(200).send(ong);
   } catch (error) {
     res.status(400).json(error.message);
+  }
+});
+
+router.put("/update/:id", async (req, res) => {
+  try {
+    const result = await UpdateOng(req.params.id, req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 });
 
@@ -49,22 +67,5 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.get("/deleted", async (req, res) => {
-  try {
-    const result = await getDeleteONGs();
-    res.status(200).send(result);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
-});
-
-router.put("/update/:id", async (req, res) => {
-  try {
-    const result = await UpdateOng(req.params.id, req.body);
-    res.status(200).send(result);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
 
 module.exports = router;
