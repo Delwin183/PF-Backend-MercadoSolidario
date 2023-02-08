@@ -7,6 +7,7 @@ const {
   logicDeleteONG,
   getDeleteONGs,
   UpdateOng,
+  getOngById,
 } = require("../../controllers/OngControllers/ongControllers");
 
 router.post("/newong", async (req, res) => {
@@ -22,6 +23,15 @@ router.get("/", async (req, res) => {
   try {
     const ongs = await getOngs();
     res.status(200).send(ongs);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const ong = await getOngById(req.params.id);
+    res.status(200).send(ong);
   } catch (error) {
     res.status(400).json(error.message);
   }
