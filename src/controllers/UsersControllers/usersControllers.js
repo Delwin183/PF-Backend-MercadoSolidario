@@ -38,7 +38,7 @@ module.exports = {
         lastName,
         phone,
         province: province ? province : undefined,
-        image: image ? image : undefined,
+        image: image ? image : "https://cdn.discordapp.com/attachments/1060926514734055539/1072706849452855416/3.png",
         cuil: cuil ? cuil : undefined,
         user_linkedin: user_linkedin ? user_linkedin : undefined,
         birthDate: birthDate ? birthDate : undefined,
