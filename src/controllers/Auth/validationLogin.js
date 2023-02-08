@@ -34,6 +34,18 @@ if(!email) {
 console.log('estoy en la validacion del login');
 
 return {containErrors: false, message: 'Usted se validó correctamente, bienvenido.'};
+};
+
+async function validateAdmin(body){
+  const {email, password} = body;
+
+  if(email !== "contacto.mercadosolidario@gmail.com"){
+    return {containErrors: true, message: 'El correo ingresado no corresponde a una cuenta administradora.'};
+  }
+  if(password !== "henryms123"){
+    return {containErrors: true, message: 'El password ingresado es incorrecto.'};
+  }
+  return {containErrors: false, message: "Usted ingresó correctamente."};
 }
 
-module.exports = { validateLogin };
+module.exports = { validateLogin, validateAdmin };

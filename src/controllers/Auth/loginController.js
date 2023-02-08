@@ -1,7 +1,7 @@
 const prisma = require("../../db");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { validateLogin } = require("./validationLogin");
+const { validateLogin, validateAdmin } = require("./validationLogin");
 const allUsersTypes = require("../AllUsersControllers/allUsersControllers");
 const { SECRET_KEY_JWT } = process.env;
 
@@ -50,5 +50,16 @@ module.exports = {
     }
     
     return {token, user, ...isValidate}
+  },
+  accessAdmin: async function (body) {
+    const validated = await validateAdmin(body);
+
+    if (validated.containErrors) {
+      throw new Error(JSON.stringify(validated));
+    };
+    const result = await prisma.admin.create({
+      data: body,
+    });
+    return result;
   }
 };

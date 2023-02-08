@@ -123,6 +123,13 @@ model Chatbot {
   answer            Boolean? @default(false)
 }
 
+model Admin {
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  email             String
+  password          String
+  date_login        DateTime        @default(now())  
+}
+
 enum type_of_help {
   efectivo
   especie
