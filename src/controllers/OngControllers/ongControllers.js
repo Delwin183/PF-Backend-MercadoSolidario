@@ -38,7 +38,7 @@ module.exports = {
         name,
         lastName,
         phone,
-        image: image? image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2MCxpxs4Z-tyUBCBmzVZy2lKq0rBTRcewRA&usqp=CAU",
+        image: image? image: "https://cdn.discordapp.com/attachments/1060926514734055539/1072706880117416017/1.png",
         ongName: ongName ? ongName : undefined,
         country: country ? country : undefined,
         province: province ? province : undefined,
