@@ -17,6 +17,7 @@ module.exports = {
       rut,
       lastName,
       cuit,
+      image,
       type_of_user,
       phone,
       amountEmployee,
@@ -37,6 +38,7 @@ module.exports = {
         name,
         lastName,
         phone,
+        image: image? image: "https://cdn.discordapp.com/attachments/1060926514734055539/1072706880117416017/1.png",
         ongName: ongName ? ongName : undefined,
         country: country ? country : undefined,
         province: province ? province : undefined,
@@ -69,12 +71,13 @@ module.exports = {
       throw new Error("La id de la ONG ingresada no es correcta");
     }
 
+    console.log(isActive)
     const result = await prisma.ong.update({
       where: {
         id: id,
       },
       data: {
-        isActive: isActive,
+        isActive: typeof isActive === "boolean" ? isActive : Boolean(isActive),
       },
     });
     return result;

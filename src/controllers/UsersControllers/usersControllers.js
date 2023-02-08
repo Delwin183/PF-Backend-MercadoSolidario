@@ -38,7 +38,7 @@ module.exports = {
         lastName,
         phone,
         province: province ? province : undefined,
-        image: image ? image : undefined,
+        image: image ? image : "https://cdn.discordapp.com/attachments/1060926514734055539/1072706849452855416/3.png",
         cuil: cuil ? cuil : undefined,
         user_linkedin: user_linkedin ? user_linkedin : undefined,
         birthDate: birthDate ? birthDate : undefined,
@@ -109,7 +109,6 @@ module.exports = {
     });
     return result;
   },
-
   UpdateUser: async (id, body) => {
     const resultValidation  = await validateUpdateUser(body);
 
@@ -127,5 +126,14 @@ module.exports = {
       include: {confirmed: true, reviews: true}
     });
     return {...result, ...resultValidation};
+  },
+  otorgarInsignias: async (id, body) => {
+    const {type_of_insignia} = body
+
+    const result = await prisma.user.update({
+      where: { id },
+      data: {type_of_insignia}
+    });
+    return result;
   },
 };
