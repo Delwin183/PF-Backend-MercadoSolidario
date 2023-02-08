@@ -5,9 +5,10 @@ const cors = require('cors')
 
 const server = express();
 server.name = "Mercado Solidario API";
+const whitelist = ["pf-backend-mercadosolidario-production.up.railway.app"];
 
 server.use(express.json());
-server.use(cors())
+server.use(cors({ origin: whitelist }));
 server.use(morgan("dev"));
 
 server.use("/", routes);
