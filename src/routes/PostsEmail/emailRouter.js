@@ -17,4 +17,33 @@ router.post("/email", async (req, res) => {
   }
 });
 
+router.post("/confirmed", async (req, res) => {
+  try {
+    const {email, type_of_help} = req.body;
+
+    if (type_of_help === 'efectivo') {
+      const filePath = path.join(__dirname, "./confirmedEfectivo.html");
+      const html = fs.readFileSync(filePath, "utf8");
+      sendEmail(email, html);
+    }
+
+    if (type_of_help === 'especie') {
+      const filePath = path.join(__dirname, "./confirmedEspecie.html");
+      const html = fs.readFileSync(filePath, "utf8");
+      sendEmail(email, html);
+    }
+    
+    if (type_of_help === 'servicio') {
+      const filePath = path.join(__dirname, "./confirmedServicio.html");
+      const html = fs.readFileSync(filePath, "utf8");
+      sendEmail(email, html);
+    }
+    
+    res.status(200).send("Email enviado");
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
+
 module.exports = router;
