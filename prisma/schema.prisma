@@ -25,6 +25,7 @@ model Ong {
   email             String 
   password          String?
   rut               String
+  // image             String?
   rubro             rubros?
   type_of_user      type_of_user
   posts             Post[]
@@ -95,6 +96,7 @@ model Company {
   email             String 
   password          String?
   rut               String
+  // image             String?
   type_of_user      type_of_user
   isActive          Boolean         @default(false)
   reviews           Review[]
