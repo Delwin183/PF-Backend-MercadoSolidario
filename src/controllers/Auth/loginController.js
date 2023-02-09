@@ -95,9 +95,9 @@ module.exports = {
     return { token, user, ...isValidate };
   },
   accessAdmin: async function (body) {
-    const { email, password, type_of_user } = body;
+    const { email, password, type_of_user, name } = body;
     const result = await prisma.admin.create({
-      data: { email, password, type_of_user },
+      data: { email, password, type_of_user, name },
     });
     return result;
   },
