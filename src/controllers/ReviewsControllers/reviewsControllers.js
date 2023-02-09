@@ -39,7 +39,7 @@ module.exports = {
     },
     getReviews: async function() {
         const result = await allUsersTypes();
-        const filtered = result.data.filter(element => element.reviews.length !== 0)
+        const filtered = result.data.filter(e => e.type_of_user !== "admin").filter(element => element.reviews.length !== 0)
         const selecction = filtered.map(element => {
             const object = {
                 name: element.name,
