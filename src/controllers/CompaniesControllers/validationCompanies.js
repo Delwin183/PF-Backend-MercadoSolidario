@@ -53,7 +53,7 @@ async function isCompany(body) {
 };
 
 async function validateUpdateCompany (body) {
-  const {name, lastName, cuit, country, amountEmployee, email, type_of_user  } = body;
+  const {cuit, country, email } = body;
 
   if (cuit) {
     return {containErrors: true, message: 'EL CUIT es único por compañia y no se puede editar'};
@@ -64,12 +64,8 @@ async function validateUpdateCompany (body) {
   if(country) {
     return {containErrors: true, message: 'El App funciona solo en Argentina, no editar este atributo'};
   }
-if(type_of_user !== "company" || type_of_user !== "ong" || type_of_user !== "user"){
-  return {containErrors: true, message: 'El tipo de usuario solo puede ser company, ong, user'};
- }
 
   return {containErrors: false, message: "Usted ha actualizado el registro correctamente"}
-
 }
 
 module.exports = { isCompany, validateUpdateCompany };
