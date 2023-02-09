@@ -16,7 +16,8 @@ module.exports = {
 
     const allUsers = await allUsersTypes();
     if (allUsers.containErrors) {
-      return allUsers;
+      console.log('se rompe acá');
+      return JSON.stringify(allUsers);
     }
 
     const user = allUsers.data.filter((user) => user.email === email);
@@ -32,20 +33,32 @@ module.exports = {
 
     if (user[0].type_of_user === "admin") {
       if (email !== "contacto.mercadosolidario@gmail.com") {
-        return {
+        throw new Error(JSON.stringify({
           containErrors: true,
           message:
             "El correo ingresado no corresponde a una cuenta administradora.",
-        };
+        }));
       }
       if (password !== PASSWORDADMIN) {
-        return {
+        throw new Error(JSON.stringify({
           containErrors: true,
           message: "El password ingresado es incorrecto.",
-        };
+        }));
       }
 
-      return { containErrors: false, message: "Usted ingresó correctamente." };
+      const token = jwt.sign(
+        {
+          name: user[0].name,
+          email: email,
+          id: user[0].id,
+          isActive: user[0].isActive,
+          type_of_user: user[0].type_of_user,
+        },
+        SECRET_KEY_JWT,
+        { expiresIn: "2w" }
+      );
+
+      return { token, containErrors: false, message: "Usted ingresó correctamente." };
     }
 
     if (!user[0].isActive) {
