@@ -125,6 +125,8 @@ model Chatbot {
 
 model Admin {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  isActive          Boolean         @default(true)
   email             String
   password          String
   type_of_user      type_of_user 
