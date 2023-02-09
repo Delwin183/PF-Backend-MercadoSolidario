@@ -34,7 +34,7 @@ module.exports = {
         email,
         name,
         lastName,
-        image: image? image : "https://cdn.discordapp.com/attachments/1060926514734055539/1072706865512853584/2.png",
+        image: image ? image : undefined,
         phone: phone ? phone : undefined,
         companyName: companyName ? companyName : undefined,
         country: country ? country : undefined,
