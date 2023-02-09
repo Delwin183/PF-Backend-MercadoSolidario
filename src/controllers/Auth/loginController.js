@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validateLogin, validateAdmin } = require("./validationLogin");
 const allUsersTypes = require("../AllUsersControllers/allUsersControllers");
-const { SECRET_KEY_JWT } = process.env;
+const { SECRET_KEY_JWT, PASSWORDADMIN } = process.env;
 
 module.exports = {
   loginOfAUser: async function (body) {
@@ -23,6 +23,17 @@ module.exports = {
     console.log(user)
     if (!user || !user.length) {
       throw new Error(JSON.stringify({containErrors: true, message: 'Por favor, registrese.'}))
+    }
+
+    if (user[0].type_of_user === 'admin') {
+      if(email !== "contacto.mercadosolidario@gmail.com"){
+        return {containErrors: true, message: 'El correo ingresado no corresponde a una cuenta administradora.'};
+      }
+      if(password !== PASSWORDADMIN){
+        return {containErrors: true, message: 'El password ingresado es incorrecto.'};
+      }
+
+      return {containErrors: false, message: "Usted ingresó correctamente."};
     }
 
     if (!user[0].isActive) {
@@ -52,13 +63,9 @@ module.exports = {
     return {token, user, ...isValidate}
   },
   accessAdmin: async function (body) {
-    const validated = await validateAdmin(body);
-
-    if (validated.containErrors) {
-      throw new Error(JSON.stringify(validated));
-    };
+    const {email, password, type_of_user} = body;
     const result = await prisma.admin.create({
-      data: body,
+      data: {email, password, type_of_user},
     });
     return result;
   }
