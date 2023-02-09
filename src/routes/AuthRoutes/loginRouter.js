@@ -8,7 +8,9 @@ router.post("/", async (req, res) => {
 
         res.status(200).send(login);
     } catch (error) {
+
         res.status(400).send(JSON.parse(error.message));
+
     }
 });
 
