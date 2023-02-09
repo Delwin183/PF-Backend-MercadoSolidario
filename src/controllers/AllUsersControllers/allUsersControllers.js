@@ -23,6 +23,7 @@ async function allUsersTypes() {
             reviews: true,
           },
     });
+    const admin = await prisma.admin.findMany();
 
     if (!allCompanies) return {message: 'Hubo un error al obtener las companías de la BD.', containErrors: true}
 
@@ -30,7 +31,9 @@ async function allUsersTypes() {
 
     if (!allVolunteers) return {message: 'Hubo un error al obtener los voluntarios de la BD.', containErrors: true}
     
-    const allUsers = [...allCompanies, ...allOngs, ...allVolunteers]
+    if (!admin) return {message: 'Hubo un error al obtener el admin de la BD.', containErrors: true}
+    
+    const allUsers = [...allCompanies, ...allOngs, ...allVolunteers, ...admin]
     
     return {data: allUsers, usersCounts: allUsers.length, containErrors: false, message: "Estos son todos los usuarios registrados hasta el momento."}
 }
